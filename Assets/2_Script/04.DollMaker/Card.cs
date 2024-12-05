@@ -10,13 +10,15 @@ public class Card : MonoBehaviour
     [SerializeField] private Sprite backSprite;
     private bool isFlipped = false;
     private bool isFlipping = false;
-    void Start()
+    public int cardID;
+
+    public void SetCardID(int id)
     {
-        
+        cardID = id;
     }
-    void Update()
+    public void SetPartSprite(Sprite sprite)
     {
-        
+        PartSprite = sprite;
     }
     public void FilpCard()
     {

@@ -5,11 +5,21 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     [SerializeField] private GameObject cardPrefab;
+    [SerializeField] private Sprite[] cardSprites;
+    private List<int> cardIDList = new List<int>();
     void Start()
     {
+        GenerateCardID();
         InitBoard();
     }
-
+    void GenerateCardID()
+    {
+        for(int i =0; i< cardSprites.Length; i++)
+        {
+            cardIDList.Add(i);
+            cardIDList.Add(i);
+        }
+    }
     void InitBoard()
     {
         float spaceY = 3.05f;
@@ -18,6 +28,8 @@ public class Board : MonoBehaviour
         int rowCount = 3;
         int colCount = 4;
 
+        int cardIndex = 0;
+
         for (int row = 0; row < rowCount; row++)
         {
             for(int col =0; col< colCount; col++)
@@ -25,7 +37,11 @@ public class Board : MonoBehaviour
                 float posY = (row - (int)(rowCount / 2)) * spaceY;
                 float posX = (col - (int)(colCount / 2)) * spaceX + (spaceX/2); 
                 Vector3 pos = new Vector3(posX, posY, 0);
-                Instantiate(cardPrefab, pos, Quaternion.identity);
+                GameObject cardObject =Instantiate(cardPrefab, pos, Quaternion.identity);
+                Card card = cardObject.GetComponent<Card>();
+                int cardID = cardIDList[cardIndex++];
+                card.SetCardID(cardID);
+                card.SetPartSprite(cardSprites[cardID]);
             }
         }
     }
