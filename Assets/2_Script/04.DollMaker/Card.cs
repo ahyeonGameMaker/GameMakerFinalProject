@@ -9,6 +9,7 @@ public class Card : MonoBehaviour
     [SerializeField] private Sprite PartSprite;
     [SerializeField] private Sprite backSprite;
     private bool isFlipped = false;
+    private bool isFlipping = false;
     void Start()
     {
         
@@ -19,6 +20,8 @@ public class Card : MonoBehaviour
     }
     public void FilpCard()
     {
+        isFlipping = true;
+
         Vector3 originalScale = transform.localScale;
         Vector3 targetScale = new Vector3(0f, originalScale.y, originalScale.z);
 
@@ -39,7 +42,9 @@ public class Card : MonoBehaviour
     }
     void OnMouseDown()
     {
-        FilpCard();
-        Debug.Log("MouseDown");
+        if(!isFlipping)
+        {
+            FilpCard();
+        }
     }
 }
