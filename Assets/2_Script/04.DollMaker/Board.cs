@@ -10,6 +10,7 @@ public class Board : MonoBehaviour
     void Start()
     {
         GenerateCardID();
+        ShuffleCardID();
         InitBoard();
     }
     void GenerateCardID()
@@ -18,6 +19,19 @@ public class Board : MonoBehaviour
         {
             cardIDList.Add(i);
             cardIDList.Add(i);
+        }
+    }
+    void ShuffleCardID()
+    {
+        int cardCount = cardIDList.Count;
+        for (int i = 0; i< cardCount; i++)
+        {
+            int randomIndex = Random.Range(i, cardCount);
+            int temp = cardIDList[randomIndex];
+            cardIDList[randomIndex] = cardIDList[i];
+            cardIDList[i] = temp;
+
+            Debug.Log(cardIDList[i]);
         }
     }
     void InitBoard()
