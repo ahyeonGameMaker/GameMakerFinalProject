@@ -5,6 +5,7 @@ public class Boss : MonoBehaviour
 {
 	public GameObject player;
 	public GameObject Projectile;
+	public GameObject EffectPrefab;
 
 	private float ProjecttileSpeed = 3f;
 	private string[] ProjecttileMsg = { 
@@ -22,6 +23,14 @@ public class Boss : MonoBehaviour
 		// 좌우 반복 이동
 		float x = Mathf.PingPong(Time.time * speed, range * 2) - range;
 		transform.position = new Vector3(x, transform.position.y, transform.position.z);
+
+		if (GameManager05.Instance.GameClear)
+		{
+			GameObject effectObj = Instantiate(EffectPrefab);
+			effectObj.transform.position = transform.position;
+
+			Destroy(gameObject);
+		}
 	}
 
 	//퍼지는 포탄 발사

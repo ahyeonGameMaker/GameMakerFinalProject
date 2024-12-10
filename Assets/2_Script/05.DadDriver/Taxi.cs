@@ -4,6 +4,7 @@ using UnityEngine;
 public class Taxi : MonoBehaviour
 {
 	public GameObject BulletPrefab;
+	public GameObject EffectPrefab;
 	public Transform left;
 	public Transform right;
 	public float moveSpeed = 5f; // 이동 속도
@@ -41,6 +42,9 @@ public class Taxi : MonoBehaviour
 		{
 			if (!GameManager05.Instance.GameClear)
 			{
+				GameObject effectObj = Instantiate(EffectPrefab);
+				effectObj.transform.position = transform.position;
+
 				GameManager05.Instance.Score -= 2;
             }
 			Destroy(collision.gameObject, 0.1f);

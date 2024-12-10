@@ -15,14 +15,13 @@ public class Bullet : MonoBehaviour
 	{
 		if (collision.CompareTag("Projectile"))
 		{
-
-            //GameObject effectObj = Instantiate(EffectPrefab);
-            //effectObj.transform.position = collision.transform.position;
-
             Destroy(collision.gameObject);
 			Destroy(gameObject);
 
 			GameManager05.Instance.Score++;
+
+            GameObject effectObj = Instantiate(EffectPrefab);
+            effectObj.transform.position = collision.transform.position;
 		}
 	}
 }

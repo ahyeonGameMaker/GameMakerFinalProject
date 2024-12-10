@@ -28,12 +28,15 @@ public class GameManager05 : MonoBehaviour
         float amount = (float)Score / (float)TotalScore;
 		if (amount == 1)
 		{
-			amount = 1;
 			GameClear = true;
-			Debug.Log("GAME CLEAR!!!!!!!!!!!!!!!!!");
         }
 
 		HpBar.fillAmount = amount;
 		ScoreTMP.text = $"{Score}/{TotalScore}";
+	}
+
+	public void NextScene()
+	{
+		Debug.Log("NextScene");
 	}
 }
