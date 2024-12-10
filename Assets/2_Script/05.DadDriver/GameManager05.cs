@@ -11,7 +11,8 @@ public class GameManager05 : MonoBehaviour
 
 	public bool ScriptTime;
 	public int Score = 0;
-	private float TotalScore = 20.0f;
+	private float TotalScore = 1; //TODO 20.0f;
+	public bool GameClear = false;
 
 	private void Awake()
 	{
@@ -21,8 +22,13 @@ public class GameManager05 : MonoBehaviour
 	private void Update()
 	{
 		float amount = Score / TotalScore;
-		amount = amount > 1 ? 1 : amount;	//¼º°ø
 		amount = amount < 0 ? 0 : amount;   //DEAD
+		if (amount > 1)
+		{
+			amount = 1;
+			GameClear = true;
+			Debug.Log("GAME CLEAR!!!!!!!!!!!!!!!!!");
+        }
 
 		HpBar.fillAmount = amount;
 	}

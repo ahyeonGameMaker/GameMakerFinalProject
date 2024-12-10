@@ -17,7 +17,7 @@ public class Taxi : MonoBehaviour
 	{
 		while (true)
 		{
-			if (!GameManager05.Instance.ScriptTime)
+			if (!GameManager05.Instance.ScriptTime && !GameManager05.Instance.GameClear)
 			{
 				GameObject leftBullet = Instantiate(BulletPrefab, left.position, left.rotation);
 				Destroy(leftBullet, 2);

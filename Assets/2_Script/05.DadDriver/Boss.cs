@@ -51,7 +51,7 @@ public class Boss : MonoBehaviour
 
 	private IEnumerator FireProjectiles()
 	{
-		while (true)
+		while (GameManager05.Instance.GameClear == false)
 		{
 			if (Random.Range(0, 2) == 0)
 			{

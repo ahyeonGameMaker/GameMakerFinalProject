@@ -1,5 +1,6 @@
 using KoreanTyper;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,8 @@ public class Dialog : MonoBehaviour
     public float duration = 5f; // 0에서 1로 증가하는 데 걸리는 시간 (초)
     public Text TestText;
     public GameObject Panel;
+    public GameObject EndingPhoto;
+    public Animator animator;
 
     private string[] scripts = {
         "대회 마감과 마주한 아!까먹었다 조\n대회 마감이 주는 공포심을 모두 피하고 대회 우승을 차지하자!",
@@ -17,11 +20,19 @@ public class Dialog : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(CountToOne());
+        StartCoroutine(ScriptDisplay());
     }
 
+    private void Update()
+    {
+        if (GameManager05.Instance.GameClear && !EndingPhoto.activeSelf)
+        {
+            EndingPhoto.SetActive(true);
+            animator.SetTrigger("End");
+        }
+    }
 
-    IEnumerator CountToOne()
+    IEnumerator ScriptDisplay()
     {
         for (int index = 0; index < scripts.Length; index++)
         {
@@ -43,7 +54,8 @@ public class Dialog : MonoBehaviour
             GameManager05.Instance.ScriptTime = false;
 
             //GamePlayTime
-            yield return new WaitForSeconds(2);  //TODO : 게임 완료 후 10으로 수정!
+            if (!GameManager05.Instance.GameClear)
+                yield return new WaitForSeconds(2);  //TODO : 게임 완료 후 10으로 수정!
         }
     }
 
