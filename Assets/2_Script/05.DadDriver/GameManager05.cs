@@ -11,7 +11,7 @@ public class GameManager05 : MonoBehaviour
 
 	public bool ScriptTime;
 	public int Score = 0;
-	private float totalScore = 20.0f;
+	private float TotalScore = 20.0f;
 
 	private void Awake()
 	{
@@ -20,10 +20,11 @@ public class GameManager05 : MonoBehaviour
 
 	private void Update()
 	{
-		float amount = Score / totalScore + 0.5f;
-		amount = amount > 1 ? 1.0f : amount;	//성공
-		amount = amount < 0 ? 1 : amount;   //DEAD
+		float amount = Score / TotalScore;
+		amount = amount > 1 ? 1 : amount;	//성공
+		amount = amount < 0 ? 0 : amount;   //DEAD
 
+		Debug.Log("FillAmount " + amount);
 		HpBar.fillAmount = amount;
 	}
 }
