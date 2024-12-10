@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class Card : MonoBehaviour
 {
@@ -10,11 +11,16 @@ public class Card : MonoBehaviour
     [SerializeField] private Sprite backSprite;
     private bool isFlipped = false;
     private bool isFlipping = false;
+    private bool isMatched = false;
     public int cardID;
 
     public void SetCardID(int id)
     {
         cardID = id;
+    }
+    public void SetMatched()
+    {
+        isMatched = true;
     }
     public void SetPartSprite(Sprite sprite)
     {
@@ -30,6 +36,7 @@ public class Card : MonoBehaviour
         transform.DOScale(targetScale, 0.2f).OnComplete(() =>
         {
             isFlipped = !isFlipped;
+
             if (isFlipped)
             {
                 cardRenerer.sprite = PartSprite;
@@ -40,13 +47,22 @@ public class Card : MonoBehaviour
             }
             transform.DOScale(originalScale, 0.2f);
         });
-
+        isFlipping = false;
     }
     void OnMouseDown()
-    {
-        if(!isFlipping)
+     {
+         if(!isFlipping && !isMatched && !isFlipped)
+         {
+             GameManager.instance.CardClicked(this);
+             Debug.Log("CardCilck");
+         }
+        else
         {
-            FilpCard();
+            Debug.Log("Card not clickable");  // 클릭이 안되었을 때
         }
     }
+    
+    
+
+    
 }

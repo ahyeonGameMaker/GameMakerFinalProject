@@ -6,7 +6,9 @@ public class Board : MonoBehaviour
 {
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Sprite[] cardSprites;
+
     private List<int> cardIDList = new List<int>();
+    private List<Card> cardList = new List<Card>(); 
     void Start()
     {
         GenerateCardID();
@@ -56,7 +58,12 @@ public class Board : MonoBehaviour
                 int cardID = cardIDList[cardIndex++];
                 card.SetCardID(cardID);
                 card.SetPartSprite(cardSprites[cardID]);
+                cardList.Add(card);
             }
         }
+    }
+    public List<Card> GetCards()
+    {
+        return cardList;
     }
 }
