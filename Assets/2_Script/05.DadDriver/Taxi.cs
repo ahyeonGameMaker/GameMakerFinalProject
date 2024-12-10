@@ -40,7 +40,8 @@ public class Taxi : MonoBehaviour
 	{
 		if (collision.tag.Equals("Projectile"))
 		{
-			GameManager05.Instance.Score -= 2;
+			if (!GameManager05.Instance.GameClear)
+				GameManager05.Instance.Score -= 2;
 			Destroy(collision.gameObject, 0.1f);
 		}
 	}

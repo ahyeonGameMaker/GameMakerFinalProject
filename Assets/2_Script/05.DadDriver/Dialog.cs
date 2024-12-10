@@ -1,5 +1,6 @@
 using KoreanTyper;
 using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,10 +8,12 @@ using UnityEngine.UI;
 public class Dialog : MonoBehaviour
 {
     public float duration = 5f; // 0에서 1로 증가하는 데 걸리는 시간 (초)
-    public Text TestText;
-    public GameObject Panel;
+    //public Text TestText;
+    public TextMeshProUGUI ScriptText;
+    public GameObject DialogPanel;
     public GameObject EndingPhoto;
     public Animator animator;
+    private bool ScriptDisplayDone = false;
 
     private string[] scripts = {
         "대회 마감과 마주한 아!까먹었다 조\n대회 마감이 주는 공포심을 모두 피하고 대회 우승을 차지하자!",
@@ -20,12 +23,14 @@ public class Dialog : MonoBehaviour
 
     private void Start()
     {
+        EndingPhoto.SetActive(false);
+        DialogPanel.SetActive(false);
         StartCoroutine(ScriptDisplay());
     }
 
     private void Update()
     {
-        if (GameManager05.Instance.GameClear && !EndingPhoto.activeSelf)
+        if (GameManager05.Instance.GameClear && !EndingPhoto.activeSelf && ScriptDisplayDone)
         {
             EndingPhoto.SetActive(true);
             animator.SetTrigger("End");
@@ -38,7 +43,7 @@ public class Dialog : MonoBehaviour
         {
             float elapsedTime = 0f;
 
-            Panel.SetActive(true);
+            DialogPanel.SetActive(true);
             GameManager05.Instance.ScriptTime = true;
             while (elapsedTime < duration)
             {
@@ -50,17 +55,18 @@ public class Dialog : MonoBehaviour
             OnTestSliderChange(index, 1);
 
             yield return new WaitForSeconds(1);
-            Panel.SetActive(false);
+            DialogPanel.SetActive(false);
             GameManager05.Instance.ScriptTime = false;
 
             //GamePlayTime
             if (!GameManager05.Instance.GameClear)
                 yield return new WaitForSeconds(2);  //TODO : 게임 완료 후 10으로 수정!
         }
+        ScriptDisplayDone = true;
     }
 
     private void OnTestSliderChange(int index, float currentValue)
     {
-        TestText.text = scripts[index].Typing(currentValue);
+        ScriptText.text = scripts[index].Typing(currentValue);
     }
 }
