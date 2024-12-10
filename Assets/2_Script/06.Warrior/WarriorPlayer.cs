@@ -1,6 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
-public class WarriorPlayer : MonoBehaviour
+public class WarriorPlayer : MonoBehaviour, IFighter
 {
     public float moveSpeed;
     public float jumpPower;
@@ -11,16 +13,123 @@ public class WarriorPlayer : MonoBehaviour
     bool isJumping;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public float maxAttackTime;
+    public float attackTime;
+    public int attackCount;
+    public int maxAttackCount;
+    bool canAttack;
+    AnimationEventHandler animationEventHandler;
+
+    public float hp;
+    public float maxHp;
+
+    public Image hpBarImage;
+    public Image hpBarSecondImage;
+
+    Coroutine smoothHpBar;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animationEventHandler = GetComponentInChildren<AnimationEventHandler>();
+        animationEventHandler.endAttackListener += EndAttack;
+        animationEventHandler.startAttackListener += StartAttack;
+        hp = maxHp;
     }
 
     private void Update()
     {
-        Jump();
-        Move();
+        Attack();
+        if (!canAttack)
+        {
+            Jump();
+            Move();
+        }
+      
+    }
+    
+
+    private IEnumerator CoSmoothHpBar(float targetFillAmount, float duration)
+    {
+        float elapsedTime = 0f;
+        float startFillAmount = hpBarSecondImage.fillAmount;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            hpBarSecondImage.fillAmount = Mathf.Lerp(startFillAmount, targetFillAmount, elapsedTime / duration);
+            yield return null;
+        }
+
+        hpBarSecondImage.fillAmount = targetFillAmount;
+    }
+    void Attack()
+    {
+        if (!isGrounded)
+            return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            rb.velocity = Vector3.zero;
+            attackTime = maxAttackTime;
+            animator.Play("Attack" + attackCount);
+            if (attackCount == 0)
+            {
+                GameMgr.Instance.attackImage.sprite = GameMgr.Instance.firstAttackSprite;
+            }
+            else if (attackCount == 1)
+            {
+                GameMgr.Instance.attackImage.sprite = GameMgr.Instance.secondAttackSprite;
+            }
+            else if (attackCount == 2)
+            {
+                GameMgr.Instance.attackImage.sprite = GameMgr.Instance.thirdAttackSprite;
+            }
+
+            if (attackCount == maxAttackCount)
+            {
+                attackCount = 0;
+            }
+            else
+            {
+                attackCount++;
+            }
+            
+            canAttack = true;
+        }
+
+        if (canAttack)
+        {
+            attackTime -= Time.deltaTime;
+
+            if (attackTime <= 0)
+            {
+                attackCount = 0;
+                attackTime = maxAttackTime;
+                GameMgr.Instance.attackImage.sprite = GameMgr.Instance.idleSprite;
+                canAttack = false;
+            }
+        }
+    }
+    public void TakeDamage(float damage)
+    {
+        hp -= damage;
+        hpBarImage.fillAmount = hp / maxHp;
+        if (smoothHpBar != null)
+        {
+            StopCoroutine(smoothHpBar);
+            smoothHpBar = null;
+        }
+        smoothHpBar = StartCoroutine(CoSmoothHpBar(hpBarImage.fillAmount, 1));
+    }
+    void EndAttack()
+    {
+
+    }
+
+    void StartAttack()
+    {
+
     }
 
     void Move()
