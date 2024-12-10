@@ -38,7 +38,6 @@ public class Taxi : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		Debug.Log("Tax Trigger " + collision.name);
 		if (collision.tag.Equals("Projectile"))
 		{
 			GameManager05.Instance.Score -= 2;

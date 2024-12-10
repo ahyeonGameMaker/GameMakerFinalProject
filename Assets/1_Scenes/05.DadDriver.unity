@@ -2970,7 +2970,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.5
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -3012,7 +3012,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e3b10937fdf6840829d6a297838275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stage: 0
+  HpBar: {fileID: 1786821017}
+  ScriptTime: 0
   Score: 0
 --- !u!4 &1831787410
 Transform:
@@ -3181,6 +3182,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1574906494}
   Projectile: {fileID: 1339220235953006292, guid: 1313cbcb0520ec142b6524b99e3fd690, type: 3}
+  speed: 2
+  range: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

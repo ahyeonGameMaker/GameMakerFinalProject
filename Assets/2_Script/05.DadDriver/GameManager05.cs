@@ -24,7 +24,6 @@ public class GameManager05 : MonoBehaviour
 		amount = amount > 1 ? 1 : amount;	//¼º°ø
 		amount = amount < 0 ? 0 : amount;   //DEAD
 
-		Debug.Log("FillAmount " + amount);
 		HpBar.fillAmount = amount;
 	}
 }
