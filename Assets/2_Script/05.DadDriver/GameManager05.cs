@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +10,12 @@ public class GameManager05 : MonoBehaviour
 
 	public bool ScriptTime;
 	public int Score = 0;
-	private int TotalScore = 20; //TODO 20;
+	private int TotalScore = 20; 
 	public bool GameClear = false;
+
+	public AudioSource AudioSource;
+	public AudioClip ProjectileExplosionClip;
+	public AudioClip FinalSoundClip;
 
 	private void Awake()
 	{
@@ -38,5 +39,15 @@ public class GameManager05 : MonoBehaviour
 	public void NextScene()
 	{
 		Debug.Log("NextScene");
+	}
+
+	public void ProjectileExplosion()
+	{
+		AudioSource.PlayOneShot(ProjectileExplosionClip);
+	}
+
+	public void FinalSound()
+	{
+		AudioSource.PlayOneShot(FinalSoundClip);
 	}
 }

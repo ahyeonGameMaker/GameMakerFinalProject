@@ -8,6 +8,10 @@ public class Taxi : MonoBehaviour
 	public Transform left;
 	public Transform right;
 	public float moveSpeed = 5f; // 이동 속도
+	public AudioSource AudioSource;
+	public AudioClip GetShotClip;
+	public AudioClip ShootGunClip;
+
     private void Start()
 	{
 		StartCoroutine(FireBullet());
@@ -21,10 +25,12 @@ public class Taxi : MonoBehaviour
 			{
 				GameObject leftBullet = Instantiate(BulletPrefab, left.position, left.rotation);
 				Destroy(leftBullet, 2);
+				AudioSource.PlayOneShot(ShootGunClip);
 				GameObject rightBullet = Instantiate(BulletPrefab, right.position, right.rotation);
 				Destroy(rightBullet, 2);
+				AudioSource.PlayOneShot(ShootGunClip);
 			}
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(1f);
 		}
 	}
 
@@ -46,7 +52,9 @@ public class Taxi : MonoBehaviour
 				effectObj.transform.position = transform.position;
 
 				GameManager05.Instance.Score -= 2;
-            }
+				AudioSource.PlayOneShot(GetShotClip);
+
+			}
 			Destroy(collision.gameObject, 0.1f);
 		}
 	}

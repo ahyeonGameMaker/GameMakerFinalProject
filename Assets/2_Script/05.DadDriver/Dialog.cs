@@ -42,6 +42,7 @@ public class Dialog : MonoBehaviour
         {
             EndingPhoto.SetActive(true);
             animator.SetTrigger("End");
+            GameManager05.Instance.FinalSound();
         }
     }
 

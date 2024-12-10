@@ -19,8 +19,10 @@ public class Bullet : MonoBehaviour
 			Destroy(gameObject);
 
 			GameManager05.Instance.Score++;
+			GameManager05.Instance.ProjectileExplosion();
 
-            GameObject effectObj = Instantiate(EffectPrefab);
+
+			GameObject effectObj = Instantiate(EffectPrefab);
             effectObj.transform.position = collision.transform.position;
 		}
 	}

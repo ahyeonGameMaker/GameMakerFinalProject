@@ -9,7 +9,7 @@ public class Boss : MonoBehaviour
 
 	private float ProjecttileSpeed = 3f;
 	private string[] ProjecttileMsg = { 
-	"귀찮음", "버그", "수정", "짜증", "불만", "두려움"};
+		"귀찮음", "버그", "수정", "짜증", "불만", "두려움", "피곤", "일정"};
 
 	public float speed = 2f; // 이동 속도
 	public float range = 3f; // 좌우 이동 거리
