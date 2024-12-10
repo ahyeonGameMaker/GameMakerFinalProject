@@ -8,8 +8,7 @@ using UnityEngine.UI;
 public class Dialog : MonoBehaviour
 {
     public float duration = 5f; // 0에서 1로 증가하는 데 걸리는 시간 (초)
-    //public Text TestText;
-    public TextMeshProUGUI ScriptText;
+    public Text TestText;
     public GameObject DialogPanel;
     public GameObject EndingPhoto;
     public Animator animator;
@@ -60,13 +59,13 @@ public class Dialog : MonoBehaviour
 
             //GamePlayTime
             if (!GameManager05.Instance.GameClear)
-                yield return new WaitForSeconds(2);  //TODO : 게임 완료 후 10으로 수정!
+                yield return new WaitForSeconds(10);
         }
         ScriptDisplayDone = true;
     }
 
     private void OnTestSliderChange(int index, float currentValue)
     {
-        ScriptText.text = scripts[index].Typing(currentValue);
+        TestText.text = scripts[index].Typing(currentValue);
     }
 }

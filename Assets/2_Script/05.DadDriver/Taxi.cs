@@ -7,8 +7,7 @@ public class Taxi : MonoBehaviour
 	public Transform left;
 	public Transform right;
 	public float moveSpeed = 5f; // 이동 속도
-
-	private void Start()
+    private void Start()
 	{
 		StartCoroutine(FireBullet());
 	}
@@ -41,7 +40,9 @@ public class Taxi : MonoBehaviour
 		if (collision.tag.Equals("Projectile"))
 		{
 			if (!GameManager05.Instance.GameClear)
+			{
 				GameManager05.Instance.Score -= 2;
+            }
 			Destroy(collision.gameObject, 0.1f);
 		}
 	}

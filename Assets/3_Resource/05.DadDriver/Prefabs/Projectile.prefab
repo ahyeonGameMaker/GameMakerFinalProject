@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tmp: {fileID: 149874481725265353}
+  EffectPrefab: {fileID: 2504214343621411470, guid: 3ed0d324122d7b24eaec75c55c74aafc, type: 3}
 --- !u!1 &7420859683388371365
 GameObject:
   m_ObjectHideFlags: 0
