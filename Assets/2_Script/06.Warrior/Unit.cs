@@ -23,14 +23,44 @@ public class Unit : MonoBehaviour, IFighter
     Coroutine smoothHpBar;
     public Image hpBarImage;
     public Image hpBarSecondImage;
+    public int damage;
+    Collider2D[] hitTargets;
+    public float hitTime;
+    public float maxHitTime;
+    bool canAttack;
+    AnimationEventHandler animationEventHandler;
+
+    public GameObject FighterObject { get => gameObject; }
     private void OnEnable()
     {
         hp = maxHp;
     }
 
+    private void Start()
+    {
+        animationEventHandler = GetComponentInChildren<AnimationEventHandler>();
+        animationEventHandler.startAttackListener += StartAttack;
+    }
+
     private void Update()
     {
-        Move();
+        hitTargets = Physics2D.OverlapCircleAll(transform.position, attackRange, targetLayer);
+        if(hitTargets.Length <= 0)
+        {
+            Move();
+        }
+        else
+        {
+            if (hitTime <= 0)
+            {
+                animator.Play("Attack");
+                hitTime = maxHitTime;
+            }
+            else
+            {
+               hitTime -= Time.deltaTime;
+            }
+        }
     }
 
     public void TakeDamage(float damage)
@@ -96,6 +126,30 @@ public class Unit : MonoBehaviour, IFighter
             else
             {
                 animator.Play("Idle");
+            }
+        }
+    }
+
+    public void StartAttack()
+    {
+        if (hitTargets.Length > 0)
+        {
+            Collider2D closestTarget = null;
+            float closestDistance = float.MaxValue;
+
+            foreach (Collider2D target in hitTargets)
+            {
+                float distance = Vector3.Distance(transform.position, target.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestTarget = target;
+                }
+            }
+
+            if (closestTarget != null)
+            {
+                closestTarget.GetComponent<IFighter>().TakeDamage(damage);
             }
         }
     }

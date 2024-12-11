@@ -11,7 +11,6 @@ public class WarriorPlayer : MonoBehaviour, IFighter
     public GameObject body;
     bool isGrounded;
     bool isJumping;
-    public Transform groundCheck;
     public LayerMask groundLayer;
     public float maxAttackTime;
     public float attackTime;
@@ -19,6 +18,7 @@ public class WarriorPlayer : MonoBehaviour, IFighter
     public int maxAttackCount;
     bool canAttack;
     AnimationEventHandler animationEventHandler;
+    public GameObject attackPoint;
 
     public float hp;
     public float maxHp;
@@ -27,6 +27,14 @@ public class WarriorPlayer : MonoBehaviour, IFighter
     public Image hpBarSecondImage;
 
     Coroutine smoothHpBar;
+
+    public Vector2 attackRange;
+
+    public int damage;
+
+    public LayerMask targetLayer;
+
+    public GameObject FighterObject { get => gameObject; }
 
     private void Start()
     {
@@ -111,6 +119,7 @@ public class WarriorPlayer : MonoBehaviour, IFighter
             }
         }
     }
+
     public void TakeDamage(float damage)
     {
         hp -= damage;
@@ -127,9 +136,16 @@ public class WarriorPlayer : MonoBehaviour, IFighter
 
     }
 
-    void StartAttack()
+    public void StartAttack()
     {
-
+        Collider2D[] targets = Physics2D.OverlapBoxAll(attackPoint.transform.position, attackRange, targetLayer);
+        if (targets.Length > 0)
+        {
+            for (int i = 0; i < targets.Length; i++)
+            {
+                targets[i].gameObject.GetComponent<IFighter>().TakeDamage(damage);
+            }
+        }
     }
 
     void Move()
@@ -172,7 +188,7 @@ public class WarriorPlayer : MonoBehaviour, IFighter
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(groundCheck.position, new Vector3(0.5f, 0.1f, 0));
+        Gizmos.DrawWireCube(attackPoint.transform.position, attackRange);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

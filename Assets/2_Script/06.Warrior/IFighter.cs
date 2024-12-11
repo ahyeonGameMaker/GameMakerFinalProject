@@ -5,4 +5,8 @@ using UnityEngine;
 public interface IFighter
 {
     public void TakeDamage(float damage);
+    GameObject FighterObject
+    {
+        get;
+    }
 }

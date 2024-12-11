@@ -11,6 +11,8 @@ public class GameMgr : MonoBehaviour
 
     public float targettingRange;
 
+    public GameObject enemySpawnPoint;
+
     public WarriorPlayer player;
     private static GameMgr instance;
     public static GameMgr Instance
