@@ -1,6 +1,6 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class WarriorPlayer : MonoBehaviour, IFighter
 {
@@ -34,6 +34,8 @@ public class WarriorPlayer : MonoBehaviour, IFighter
 
     public LayerMask targetLayer;
 
+
+
     public GameObject FighterObject { get => gameObject; }
 
     private void Start()
@@ -53,9 +55,9 @@ public class WarriorPlayer : MonoBehaviour, IFighter
             Jump();
             Move();
         }
-      
+
     }
-    
+
 
     private IEnumerator CoSmoothHpBar(float targetFillAmount, float duration)
     {
@@ -73,6 +75,7 @@ public class WarriorPlayer : MonoBehaviour, IFighter
     }
     void Attack()
     {
+
         if (!isGrounded)
             return;
 
@@ -102,7 +105,7 @@ public class WarriorPlayer : MonoBehaviour, IFighter
             {
                 attackCount++;
             }
-            
+
             canAttack = true;
         }
 
@@ -139,11 +142,17 @@ public class WarriorPlayer : MonoBehaviour, IFighter
     public void StartAttack()
     {
         Collider2D[] targets = Physics2D.OverlapBoxAll(attackPoint.transform.position, attackRange, targetLayer);
+
+        Debug.Log(targets.Length); 
         if (targets.Length > 0)
         {
-            for (int i = 0; i < targets.Length; i++)
+            for (int i = 0; i < targets.Length; i++) 
             {
-                targets[i].gameObject.GetComponent<IFighter>().TakeDamage(damage);
+                Debug.Log(targets[i].name);
+                if (targets[i].gameObject.GetComponent<Unit>() != null && targets[i].gameObject.GetComponent<Unit>().unitType == UnitType.Enemy) 
+                {
+                    targets[i].gameObject.GetComponent<IFighter>().TakeDamage(damage); 
+                } 
             }
         }
     }

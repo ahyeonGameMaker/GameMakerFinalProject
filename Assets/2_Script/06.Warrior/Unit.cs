@@ -21,16 +21,21 @@ public class Unit : MonoBehaviour, IFighter
 
     public GameObject target;
     Coroutine smoothHpBar;
+    Coroutine takeDamageColorChange;
     public Image hpBarImage;
     public Image hpBarSecondImage;
     public int damage;
     Collider2D[] hitTargets;
     public float hitTime;
     public float maxHitTime;
-    bool canAttack;
     AnimationEventHandler animationEventHandler;
+    bool die;
+    public bool knockDown;
+    public Image fKeyImage;
 
     public GameObject FighterObject { get => gameObject; }
+
+    public float fKeyImageRange;
     private void OnEnable()
     {
         hp = maxHp;
@@ -40,10 +45,29 @@ public class Unit : MonoBehaviour, IFighter
     {
         animationEventHandler = GetComponentInChildren<AnimationEventHandler>();
         animationEventHandler.startAttackListener += StartAttack;
+        animationEventHandler.dieAttackListener += Die;
     }
 
     private void Update()
     {
+        if (die)
+            return;
+        if (knockDown)
+        {
+            Collider2D[] players = Physics2D.OverlapCircleAll(transform.position, fKeyImageRange, 0);
+            for(int i = 0; i < players.Length; i++)
+            {
+                if (players[i].CompareTag("Player"))
+                {
+                    fKeyImage.gameObject.SetActive(true);
+                }
+            }
+            return;
+        }
+           
+
+       
+
         hitTargets = Physics2D.OverlapCircleAll(transform.position, attackRange, targetLayer);
         if(hitTargets.Length <= 0)
         {
@@ -67,12 +91,56 @@ public class Unit : MonoBehaviour, IFighter
     {
         hp -= damage;
         hpBarImage.fillAmount = hp / maxHp;
+        if(takeDamageColorChange != null)
+        {
+            StopCoroutine(takeDamageColorChange);
+            takeDamageColorChange = null;
+        }
         if (smoothHpBar != null)
         {
             StopCoroutine(smoothHpBar);
             smoothHpBar = null;
         }
         smoothHpBar = StartCoroutine(CoSmoothHpBar(hpBarImage.fillAmount, 1));
+        takeDamageColorChange = StartCoroutine(CoTakeDamageColorChange());
+
+        
+
+        if (hp <= 0)
+        {
+            knockDown = false;
+            die = true;
+            animator.Play("Die");
+        }
+
+        if (hp / maxHp <= 0.2f && !die && unitType == UnitType.Enemy)
+        {
+            animator.Play("Idle");
+            knockDown = true;
+        }
+    }
+
+    public void Catch()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Friendly");
+        unitType = UnitType.Friendly;
+        knockDown = false;
+        hp = maxHp;
+        hpBarImage.fillAmount = hp / maxHp;
+        hpBarSecondImage.fillAmount = hpBarImage.fillAmount;
+        hpBarImage.color = Color.green;
+    }
+
+    void Die()
+    {
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator CoTakeDamageColorChange()
+    {
+        body.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        body.GetComponent<SpriteRenderer>().color = Color.white;
     }
     private IEnumerator CoSmoothHpBar(float targetFillAmount, float duration)
     {
@@ -158,6 +226,8 @@ public class Unit : MonoBehaviour, IFighter
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.transform.position, attackRange);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, fKeyImageRange);
     }
 }
 

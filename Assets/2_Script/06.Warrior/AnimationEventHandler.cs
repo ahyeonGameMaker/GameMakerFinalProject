@@ -7,6 +7,7 @@ public class AnimationEventHandler : MonoBehaviour
 {
     public Action endAttackListener;
     public Action startAttackListener;
+    public Action dieAttackListener;
     public void EndAttack()
     {
         endAttackListener?.Invoke();
@@ -14,5 +15,9 @@ public class AnimationEventHandler : MonoBehaviour
     public void StartAttack()
     {
         startAttackListener?.Invoke();
+    }
+    public void Die()
+    {
+        dieAttackListener?.Invoke();
     }
 }

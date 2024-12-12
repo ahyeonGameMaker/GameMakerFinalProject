@@ -39,6 +39,7 @@ public class GameMgr : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, targettingRange);
+
     }
 
 }
