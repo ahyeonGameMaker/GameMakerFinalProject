@@ -31,6 +31,7 @@ public class WarriorPlayer : MonoBehaviour, IFighter
     public Vector2 attackRange;
 
     public int damage;
+    int currentDmage;
 
     public LayerMask targetLayer;
 
@@ -84,16 +85,26 @@ public class WarriorPlayer : MonoBehaviour, IFighter
             rb.velocity = Vector3.zero;
             attackTime = maxAttackTime;
             animator.Play("Attack" + attackCount);
+
             if (attackCount == 0)
             {
+                attackPoint.transform.localPosition = new Vector2(0.271f, 0);
+                attackRange = new Vector2(2.88f, 1.99f);
+                currentDmage = damage;
                 GameMgr.Instance.attackImage.sprite = GameMgr.Instance.firstAttackSprite;
             }
             else if (attackCount == 1)
             {
+                attackPoint.transform.localPosition = new Vector2(0.155f, 0);
+                attackRange = new Vector2(5.14f, 0.38f);
+                currentDmage = damage * 2;
                 GameMgr.Instance.attackImage.sprite = GameMgr.Instance.secondAttackSprite;
             }
             else if (attackCount == 2)
             {
+                attackPoint.transform.localPosition = new Vector2(0.338f, 0.175f);
+                attackRange = new Vector2(4.06f, 3.8f);
+                currentDmage = damage * 3;
                 GameMgr.Instance.attackImage.sprite = GameMgr.Instance.thirdAttackSprite;
             }
 
@@ -141,7 +152,7 @@ public class WarriorPlayer : MonoBehaviour, IFighter
 
     public void StartAttack()
     {
-        Collider2D[] targets = Physics2D.OverlapBoxAll(attackPoint.transform.position, attackRange, targetLayer);
+        Collider2D[] targets = Physics2D.OverlapBoxAll(attackPoint.transform.position, attackRange, 0);
 
         Debug.Log(targets.Length); 
         if (targets.Length > 0)
@@ -151,8 +162,12 @@ public class WarriorPlayer : MonoBehaviour, IFighter
                 Debug.Log(targets[i].name);
                 if (targets[i].gameObject.GetComponent<Unit>() != null && targets[i].gameObject.GetComponent<Unit>().unitType == UnitType.Enemy) 
                 {
-                    targets[i].gameObject.GetComponent<IFighter>().TakeDamage(damage); 
-                } 
+                    targets[i].gameObject.GetComponent<IFighter>().TakeDamage(currentDmage); 
+                }
+                if(targets[i].gameObject.GetComponent<Stone>() != null)
+                {
+                    targets[i].gameObject.GetComponent<IFighter>().TakeDamage(currentDmage);
+                }
             }
         }
     }

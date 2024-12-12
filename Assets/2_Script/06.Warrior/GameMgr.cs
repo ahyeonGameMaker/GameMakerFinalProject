@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,14 @@ public class GameMgr : MonoBehaviour
     public GameObject enemySpawnPoint;
 
     public WarriorPlayer player;
+
+    public TMP_Text timerText;
+
+    public int waveLevel;
+
+    public int minute;
+    public int second;
+    float elapsedTime;
     private static GameMgr instance;
     public static GameMgr Instance
     {
@@ -32,7 +41,36 @@ public class GameMgr : MonoBehaviour
 
     public void Update()
     {
-        
+        UpdateTimer();
+    }
+
+    void UpdateTimer()
+    {
+        if (minute > 0 || second > 0)
+        {
+            elapsedTime += Time.deltaTime;
+
+            if (elapsedTime >= 1f)
+            {
+                elapsedTime = 0f;
+                if (second > 0)
+                {
+                    second--;
+                }
+                else if (minute > 0)
+                {
+                    minute--;
+                    second = 59;
+                }
+            }
+        }
+
+        timerText.text = string.Format("{0:00}:{1:00}", minute, second);
+
+        if (minute == 0 && second == 0)
+        {
+            
+        }
     }
 
     private void OnDrawGizmos()
