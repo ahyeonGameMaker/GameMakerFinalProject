@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -295,8 +295,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.22171783, y: 0.01888895}
-  m_Size: {x: 0.8324852, y: 2.1239548}
+  m_Offset: {x: 0, y: 0.032631516}
+  m_Size: {x: 1.1568127, y: 2.15144}
   m_Direction: 0
 --- !u!50 &8124379431637350065
 Rigidbody2D:
@@ -359,7 +359,7 @@ MonoBehaviour:
   hpBarSecondImage: {fileID: 4653337817006455800}
   damage: 10
   hitTime: 0
-  maxHitTime: 0.5
+  maxHitTime: 2
   knockDown: 0
   fKeyImage: {fileID: 2773356946313385906}
   fKeyImageRange: 1

@@ -43,6 +43,7 @@ public class Unit : MonoBehaviour, IFighter
 
     public bool wideUnit;
     bool isAttack;
+    bool isAttacking;
 
     public EnemyType enemyType;
     private void OnEnable()
@@ -66,6 +67,7 @@ public class Unit : MonoBehaviour, IFighter
         animationEventHandler = GetComponentInChildren<AnimationEventHandler>();
         animationEventHandler.startAttackListener += StartAttack;
         animationEventHandler.dieAttackListener += Die;
+        animationEventHandler.endAttackListener += EndAttack;
     }
 
     private void Update()
@@ -126,12 +128,18 @@ public class Unit : MonoBehaviour, IFighter
         hitTargets = Physics2D.OverlapBoxAll(transform.position, attackRange, 0);
         foreach (var target in hitTargets)
         {
-            if(unitType == UnitType.Enemy)
+            if (unitType == UnitType.Enemy)
             {
                 if (target.gameObject.CompareTag("Player") || target.gameObject.CompareTag("Friendly"))
                 {
                     isAttack = true;
                     this.target = target.gameObject;
+                    if (!isAttacking)
+                    {
+                        animator.Play("Idle");
+                        isAttacking = true;
+                    }
+                    
                     break;
                 }
             }
@@ -141,12 +149,15 @@ public class Unit : MonoBehaviour, IFighter
                 {
                     isAttack = true;
                     this.target = target.gameObject;
+                    if (!isAttacking)
+                    {
+                        animator.Play("Idle");
+                        isAttacking = true;
+                    }
                     break;
                 }
             }
             isAttack = false;
-
-
         }
 
         if (isAttack)
@@ -164,6 +175,7 @@ public class Unit : MonoBehaviour, IFighter
         }
         else
         {
+            isAttacking = false;
             Move();
         }
     }
@@ -296,6 +308,10 @@ public class Unit : MonoBehaviour, IFighter
         }
     }
 
+    public void EndAttack()
+    {
+        animator.Play("Idle");
+    }
     public void StartAttack()
     {
         if (hitTargets.Length > 0)
@@ -335,8 +351,22 @@ public class Unit : MonoBehaviour, IFighter
             {
                 for(int i = 0; i < hitTargets.Length; i++)
                 {
+                    if (unitType == UnitType.Enemy)
+                    {
+                        if (!hitTargets[i].gameObject.CompareTag("Player") && !hitTargets[i].gameObject.CompareTag("Friendly"))
+                            continue;
+                    }
+                    else if (unitType == UnitType.Friendly)
+                    {
+                        if (!hitTargets[i].gameObject.CompareTag("Enemy"))
+                            continue;
+                    }
+
                     if (hitTargets[i].GetComponent<IFighter>() != null)
+                    {
                         hitTargets[i].GetComponent<IFighter>().TakeDamage(damage);
+                    }
+                        
                 }
             }
             

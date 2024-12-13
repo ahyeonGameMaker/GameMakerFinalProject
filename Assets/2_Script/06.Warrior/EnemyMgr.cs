@@ -28,9 +28,9 @@ public class EnemyMgr : MonoBehaviour
         {
             if (units[i].enemyType == type)
             {
-                Unit ballEnemy = Instantiate(units[i]);
-                enemiesPoolings.Add(ballEnemy);
-                return ballEnemy;
+                Unit enemy = Instantiate(units[i]);
+                enemiesPoolings.Add(enemy);
+                return enemy;
             }
         }
         return null;
@@ -38,25 +38,40 @@ public class EnemyMgr : MonoBehaviour
 
     IEnumerator CoSpawnEnemy()
     {
-        while(0 < waveInfos[GameMgr.Instance.waveLevel].spawnTime)
+        while (0 < waveInfos[GameMgr.Instance.waveLevel].spawnTime)
         {
+            float totalChance = 0f;
+            foreach (var spawn in waveInfos[GameMgr.Instance.waveLevel].enemySpawns)
+            {
+                totalChance += spawn.chance;
+            }
+
+            float random = Random.Range(0f, totalChance);
+
+            float cumulativeChance = 0f;
             for (int i = 0; i < waveInfos[GameMgr.Instance.waveLevel].enemySpawns.Length; i++)
             {
-                float random = Random.Range(0f, 100f);
-                if (random <= waveInfos[GameMgr.Instance.waveLevel].enemySpawns[i].chance)
+                cumulativeChance += waveInfos[GameMgr.Instance.waveLevel].enemySpawns[i].chance;
+
+                if (random <= cumulativeChance)
                 {
                     Unit enemy = GetEnemy(waveInfos[GameMgr.Instance.waveLevel].enemySpawns[i].type);
-                    enemy.transform.position = GameMgr.Instance.enemySpawnPoint.transform.position;
-                    if (enemy.enemyType == EnemyType.Skeleton)
+                    if (enemy != null)
                     {
-                        enemy.transform.position = new Vector3(enemy.transform.position.x, -2.942f, enemy.transform.position.z);
+                        enemy.transform.position = GameMgr.Instance.enemySpawnPoint.transform.position;
+                        if (enemy.enemyType == EnemyType.Skeleton || enemy.enemyType == EnemyType.Goblin)
+                        {
+                            enemy.transform.position = new Vector3(enemy.transform.position.x, -2.942f, enemy.transform.position.z);
+                        }
                     }
+                    break;
                 }
             }
 
             yield return new WaitForSeconds(waveInfos[GameMgr.Instance.waveLevel].spawnTime);
         }
     }
+
 }
 
 
@@ -75,7 +90,8 @@ public class EnemySpawn
 
 public enum EnemyType
 {
-    Skeleton
+    Skeleton,
+    Goblin
 }
 
 
