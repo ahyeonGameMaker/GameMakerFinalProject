@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private AudioSource S;
     [SerializeField] private AudioSource F;
+    [SerializeField] private AudioSource G_F;
+    [SerializeField] private AudioSource G_S;
+
     void Awake()
     {
         if(instance == null)
@@ -136,10 +139,12 @@ public class GameManager : MonoBehaviour
             if (success)
             {
                 gameOverText.SetText("Game Clear");
+                G_S.Play();
             }
             else
             {
                 gameOverText.SetText("Game Over");
+                G_F.Play();
             }
             Invoke("ShowGameOverPanel", 2f);
         }
