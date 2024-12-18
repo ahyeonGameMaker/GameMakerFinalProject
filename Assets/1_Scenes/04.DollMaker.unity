@@ -2274,8 +2274,8 @@ MonoBehaviour:
   gameOverText: {fileID: 1630456814}
   S: {fileID: 1288262888}
   F: {fileID: 779284823}
-  G_F: {fileID: 0}
-  G_S: {fileID: 0}
+  G_F: {fileID: 1892751351}
+  G_S: {fileID: 1168347693}
 --- !u!1 &2004780531
 GameObject:
   m_ObjectHideFlags: 0
