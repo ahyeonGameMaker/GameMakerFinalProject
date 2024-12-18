@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TextMeshProUGUI gameOverText;
     private bool isGameOver = false;
+
+    [SerializeField] private AudioSource S;
+    [SerializeField] private AudioSource F;
     void Awake()
     {
         if(instance == null)
@@ -100,6 +103,8 @@ public class GameManager : MonoBehaviour
         {
             card1.SetMatched();
             card2.SetMatched();
+            S.Play();
+
             matchesFound++;
 
             if(matchesFound == totalMatches)
@@ -113,6 +118,7 @@ public class GameManager : MonoBehaviour
 
             card1.FilpCard();
             card2.FilpCard();
+            F.Play();
 
             yield return new WaitForSeconds (0.4f);
         }

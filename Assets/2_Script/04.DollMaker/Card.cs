@@ -13,7 +13,7 @@ public class Card : MonoBehaviour
     private bool isFlipping = false;
     private bool isMatched = false;
     public int cardID;
-
+    public AudioSource CardSource;
     public void SetCardID(int id)
     {
         cardID = id;
@@ -54,15 +54,13 @@ public class Card : MonoBehaviour
          if(!isFlipping && !isMatched && !isFlipped)
          {
              GameManager.instance.CardClicked(this);
-             Debug.Log("CardCilck");
+            CardSource.Play();
+            Debug.Log("CardCilck");
          }
         else
         {
             Debug.Log("Card not clickable");  // 클릭이 안되었을 때
         }
     }
-    
-    
-
-    
+  
 }
