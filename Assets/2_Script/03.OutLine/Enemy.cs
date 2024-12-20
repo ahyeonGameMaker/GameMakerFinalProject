@@ -10,6 +10,10 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             UIManager.instance.GaemOverUI();
+            if (ScoreManager.instance.score >= 5)
+            {
+                UIManager.instance.nextBtn.SetActive(true);
+            }
             EnemySpawner.instance.GameOver();
         }
         else if (collision.gameObject.tag == "Bullet")

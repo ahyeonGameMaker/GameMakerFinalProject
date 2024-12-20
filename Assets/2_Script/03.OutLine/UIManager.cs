@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public GameObject gameOverPanel;
     public Text scoreText;
+    public GameObject nextBtn;
 
     public static UIManager instance;
 

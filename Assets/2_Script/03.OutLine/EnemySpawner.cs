@@ -46,6 +46,14 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    public void StartSpawn()
+    {
+        if (!canSpawn)
+        {
+            canSpawn = true;
+        }
+    }
+
     private void SpawnEnemy()
     {
         // 랜덤한 적 프리팹 선택
