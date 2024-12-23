@@ -525,8 +525,8 @@ Transform:
   m_GameObject: {fileID: 363775583}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.0432, y: -10.0885, z: 0.034988858}
-  m_LocalScale: {x: 69.41287, y: 12.2171, z: 1}
+  m_LocalPosition: {x: 6.0406, y: -10.0885, z: 0.034988858}
+  m_LocalScale: {x: 89.57732, y: 12.2171, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1038,7 +1038,8 @@ MonoBehaviour:
   player: {fileID: 1295990267}
   timerText: {fileID: 701932112}
   waveLevel: 0
-  minute: 5
+  maxMinute: 5
+  minute: 0
   second: 0
 --- !u!4 &490628317
 Transform:
@@ -1561,8 +1562,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBarImage: {fileID: 146009298}
   hpBarSecondImage: {fileID: 1707570867}
-  maxHp: 30000
-  hp: 30000
+  maxHp: 10000
+  hp: 10000
   hpText: {fileID: 1845681202}
 --- !u!1 &875478550
 GameObject:
@@ -1596,14 +1597,50 @@ MonoBehaviour:
   units:
   - {fileID: 1108290081057773066, guid: 380eb97d4b06b4548b1ea19e8f05ca89, type: 3}
   - {fileID: 4938790387935980864, guid: 537261ae86a12da4ca75a6480e1c2f21, type: 3}
+  - {fileID: 2539817644083941165, guid: 8879779c80937df49927f1a71d60a2f4, type: 3}
+  - {fileID: 5803770215559148644, guid: 3c6d9961239ccd14e953ab40cefcc872, type: 3}
   enemiesPoolings: []
   waveInfos:
   - enemySpawns:
     - type: 0
       chance: 100
+    spawnTime: 3.5
+    bossWave: 0
+  - enemySpawns:
+    - type: 0
+      chance: 100
     - type: 1
       chance: 70
-    spawnTime: 1
+    spawnTime: 3
+    bossWave: 0
+  - enemySpawns:
+    - type: 1
+      chance: 100
+    - type: 3
+      chance: 30
+    spawnTime: 4
+    bossWave: 0
+  - enemySpawns:
+    - type: 3
+      chance: 10
+    - type: 2
+      chance: 30
+    - type: 0
+      chance: 100
+    spawnTime: 4
+    bossWave: 0
+  - enemySpawns:
+    - type: 0
+      chance: 100
+    - type: 1
+      chance: 30
+    - type: 3
+      chance: 5
+    - type: 2
+      chance: 5
+    spawnTime: 7
+    bossWave: 1
+  boss: {fileID: 3879776959278270075}
 --- !u!4 &875478552
 Transform:
   m_ObjectHideFlags: 0
@@ -2271,11 +2308,11 @@ MonoBehaviour:
   maxAttackCount: 2
   attackPoint: {fileID: 199288980}
   hp: 0
-  maxHp: 100
+  maxHp: 500
   hpBarImage: {fileID: 594855108}
   hpBarSecondImage: {fileID: 1282850064}
   attackRange: {x: 3, y: 3}
-  damage: 10
+  damage: 15
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -2731,7 +2768,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 30000/30000
+  m_text: 10000/10000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 538b8f9aa8e31cf439a90e55ced6368b, type: 2}
   m_sharedMaterial: {fileID: 2214532962974689556, guid: 538b8f9aa8e31cf439a90e55ced6368b, type: 2}
@@ -2905,6 +2942,78 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2093182666}
   m_CullTransparentMesh: 1
+--- !u!1001 &24618941242031608
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 803340341176266921, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -19.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 803340341176266921, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 803340341176266921, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.044591907
+      objectReference: {fileID: 0}
+    - target: {fileID: 803340341176266921, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 803340341176266921, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 803340341176266921, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 803340341176266921, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 803340341176266921, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 803340341176266921, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 803340341176266921, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949333816818843682, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_Name
+      value: RockMonster
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949333816818843682, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+--- !u!114 &3879776959278270075 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6239962380813691800, guid: b089bd857e43c6149ae259df87b64b61, type: 3}
+  m_PrefabInstance: {fileID: 24618941242031608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0eb64e2f864a248a301c1926b5ec8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2926,3 +3035,4 @@ SceneRoots:
   - {fileID: 487079576}
   - {fileID: 63294706}
   - {fileID: 1508201143}
+  - {fileID: 24618941242031608}

@@ -20,10 +20,13 @@ public class GameMgr : MonoBehaviour
 
     public int waveLevel;
 
+    public int maxMinute;
     public int minute;
     public int second;
     float elapsedTime;
+
     private static GameMgr instance;
+
     public static GameMgr Instance
     {
         get
@@ -37,6 +40,7 @@ public class GameMgr : MonoBehaviour
         {
             instance = this;
         }
+        minute = maxMinute;
     }
 
     public void Update()
@@ -49,7 +53,6 @@ public class GameMgr : MonoBehaviour
         if (minute > 0 || second > 0)
         {
             elapsedTime += Time.deltaTime;
-
             if (elapsedTime >= 1f)
             {
                 elapsedTime = 0f;
@@ -59,6 +62,13 @@ public class GameMgr : MonoBehaviour
                 }
                 else if (minute > 0)
                 {
+                    if (minute < maxMinute)
+                    {
+                        if (waveLevel <= maxMinute)
+                        {
+                            waveLevel++;
+                        }
+                    }
                     minute--;
                     second = 59;
                 }
@@ -69,7 +79,7 @@ public class GameMgr : MonoBehaviour
 
         if (minute == 0 && second == 0)
         {
-            
+            return;
         }
     }
 

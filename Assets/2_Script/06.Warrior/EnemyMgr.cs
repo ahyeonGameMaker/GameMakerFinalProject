@@ -7,7 +7,22 @@ public class EnemyMgr : MonoBehaviour
     public Unit[] units;
     public List<Unit> enemiesPoolings = new List<Unit>();
     public WaveInfo[] waveInfos;
-
+    public Unit boss;
+    private static EnemyMgr instance;
+    public static EnemyMgr Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
     private void Start()
     {
         StartCoroutine(CoSpawnEnemy());
@@ -38,8 +53,17 @@ public class EnemyMgr : MonoBehaviour
 
     IEnumerator CoSpawnEnemy()
     {
+        bool bossSpawned = false;
         while (0 < waveInfos[GameMgr.Instance.waveLevel].spawnTime)
         {
+            if (waveInfos[GameMgr.Instance.waveLevel].bossWave && !bossSpawned)
+            {
+                if (boss != null && !boss.gameObject.activeSelf)
+                {
+                    boss.gameObject.SetActive(true);
+                    bossSpawned = true;
+                }
+            }
             float totalChance = 0f;
             foreach (var spawn in waveInfos[GameMgr.Instance.waveLevel].enemySpawns)
             {
@@ -62,6 +86,12 @@ public class EnemyMgr : MonoBehaviour
                         if (enemy.enemyType == EnemyType.Skeleton || enemy.enemyType == EnemyType.Goblin)
                         {
                             enemy.transform.position = new Vector3(enemy.transform.position.x, -2.942f, enemy.transform.position.z);
+                        }else if(enemy.enemyType == EnemyType.IceGolem)
+                        {
+                            enemy.transform.position = new Vector3(enemy.transform.position.x, -1.55f, enemy.transform.position.z);
+                        }else if(enemy.enemyType == EnemyType.Reptilian)
+                        {
+                            enemy.transform.position = new Vector3(enemy.transform.position.x, -2.13f, enemy.transform.position.z);
                         }
                     }
                     break;
@@ -80,6 +110,7 @@ public class WaveInfo
 {
     public EnemySpawn[] enemySpawns;
     public float spawnTime;
+    public bool bossWave;
 }
 [System.Serializable]
 public class EnemySpawn
@@ -91,7 +122,10 @@ public class EnemySpawn
 public enum EnemyType
 {
     Skeleton,
-    Goblin
+    Goblin, 
+    IceGolem,
+    Reptilian,
+    RockMonster
 }
 
 

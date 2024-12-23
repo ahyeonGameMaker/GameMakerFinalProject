@@ -34,13 +34,15 @@ public class WarriorPlayer : MonoBehaviour, IFighter
     int currentDmage;
 
     public LayerMask targetLayer;
-
+    Color damageColor;
+    Coroutine takeDamageColorChange;
 
 
     public GameObject FighterObject { get => gameObject; }
 
     private void Start()
     {
+        damageColor = body.GetComponent<SpriteRenderer>().color = Color.white;
         rb = GetComponent<Rigidbody2D>();
         animationEventHandler = GetComponentInChildren<AnimationEventHandler>();
         animationEventHandler.endAttackListener += EndAttack;
@@ -143,11 +145,23 @@ public class WarriorPlayer : MonoBehaviour, IFighter
             StopCoroutine(smoothHpBar);
             smoothHpBar = null;
         }
+        if (takeDamageColorChange != null)
+        {
+            StopCoroutine(takeDamageColorChange);
+            takeDamageColorChange = null;
+        }
         smoothHpBar = StartCoroutine(CoSmoothHpBar(hpBarImage.fillAmount, 1));
+        takeDamageColorChange = StartCoroutine(CoTakeDamageColorChange());
     }
     void EndAttack()
     {
 
+    }
+    IEnumerator CoTakeDamageColorChange()
+    {
+        body.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        body.GetComponent<SpriteRenderer>().color = damageColor;
     }
 
     public void StartAttack()
