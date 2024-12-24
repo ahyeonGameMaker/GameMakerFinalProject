@@ -1,96 +1,98 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+namespace OutLine
 {
-    public GameObject bulletPrefab; // 총알 프리팹
-    public Transform firePoint; // 총알 발사 위치
 
-    public float delay;
+	public class PlayerAttack : MonoBehaviour
+	{
+		public GameObject bulletPrefab; // 총알 프리팹
+		public Transform firePoint; // 총알 발사 위치
 
-    private bool canShoot = true;
+		public float delay;
 
-    private Animator animator;
-    private PlayerMove playerMove;
-    private CinemachineImpulseSource cinemachineImpulseSource;
+		private bool canShoot = true;
 
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-        playerMove = GetComponent<PlayerMove>();
-        cinemachineImpulseSource = GetComponent<CinemachineImpulseSource>();
-    }
+		private Animator animator;
+		private PlayerMove playerMove;
+		private CinemachineImpulseSource cinemachineImpulseSource;
 
-    private void Update()
-    {
-        Shoot();
-        SlowMotion();
-    }
+		private void Awake()
+		{
+			animator = GetComponent<Animator>();
+			playerMove = GetComponent<PlayerMove>();
+			cinemachineImpulseSource = GetComponent<CinemachineImpulseSource>();
+		}
 
-    private void Shoot()
-    {
-        if (Input.GetMouseButtonDown(0) && canShoot)
-        {
-            if (!playerMove.isJump)
-            {
-                canShoot = false;
-                Invoke("CanShootOn", delay);
+		private void Update()
+		{
+			Shoot();
+			SlowMotion();
+		}
 
-                playerMove.canMove = false;
+		private void Shoot()
+		{
+			if (Input.GetMouseButtonDown(0) && canShoot)
+			{
+				if (!playerMove.isJump)
+				{
+					canShoot = false;
+					Invoke("CanShootOn", delay);
 
-                animator.SetTrigger("GunShoot");
+					playerMove.canMove = false;
 
-                ShootBullet();
+					animator.SetTrigger("GunShoot");
 
-                cinemachineImpulseSource.GenerateImpulse();
-            }
-            else
-            {
-                canShoot = false;
-                Invoke("CanShootOn", 0.15f);
+					ShootBullet();
 
-                ShootBullet();
+					cinemachineImpulseSource.GenerateImpulse();
+				}
+				else
+				{
+					canShoot = false;
+					Invoke("CanShootOn", 0.15f);
 
-                cinemachineImpulseSource.GenerateImpulse();
-            }
-        }
-    }
+					ShootBullet();
 
-    void ShootBullet()
-    {
-        // 마우스 클릭 위치 계산
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
+					cinemachineImpulseSource.GenerateImpulse();
+				}
+			}
+		}
 
-        // 총알 회전 설정
-        Vector3 direction = mousePosition - firePoint.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+		void ShootBullet()
+		{
+			// 마우스 클릭 위치 계산
+			Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			mousePosition.z = 0;
 
-        // 총알 생성 및 방향 설정
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
-    }
+			// 총알 회전 설정
+			Vector3 direction = mousePosition - firePoint.position;
+			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-    private void SlowMotion()
-    {
-        if (Input.GetMouseButton(1))
-        {
-            Time.timeScale = 0.5f;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
-    }
+			// 총알 생성 및 방향 설정
+			GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
+		}
 
-    private void CanShootOn()
-    {
-        canShoot = true;
-    }
+		private void SlowMotion()
+		{
+			if (Input.GetMouseButton(1))
+			{
+				Time.timeScale = 0.5f;
+			}
+			else
+			{
+				Time.timeScale = 1f;
+			}
+		}
 
-    private void CanMoveOn()
-    {
-        playerMove.canMove = true;
-    }
+		private void CanShootOn()
+		{
+			canShoot = true;
+		}
+
+		private void CanMoveOn()
+		{
+			playerMove.canMove = true;
+		}
+	}
 }
