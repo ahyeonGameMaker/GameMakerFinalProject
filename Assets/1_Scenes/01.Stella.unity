@@ -3866,7 +3866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossBulletPrefab: {fileID: 2701059509575411863, guid: d502a2e44f52f9244a63aa41eb99bd0a, type: 3}
   shootPoint: {fileID: 112579435}
-  shootSpeed: 0.1
+  shootSpeed: 0.5
   bossBulletPooling: []
   shootPointRollSpeed: 43.3
   isShooting: 0
