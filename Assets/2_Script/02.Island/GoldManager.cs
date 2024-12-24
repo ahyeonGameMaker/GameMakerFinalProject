@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GoldManager : MonoBehaviour
 {
     public static GoldManager instance;
+
+    public Text goldText;
 
     private void Awake()
     {
@@ -24,7 +28,7 @@ public class GoldManager : MonoBehaviour
 
     void Start()
     {
-        
+        goldText.text = $"{gold}G";
     }
 
     void Update()
@@ -35,5 +39,6 @@ public class GoldManager : MonoBehaviour
     public void AddGold(int addGold)
     {
         gold += addGold;
+        goldText.text = $"{gold}G";
     }
 }

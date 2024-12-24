@@ -773,11 +773,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb0c5b537992454c9b427aedf7f7e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1332399565798939009, guid: 6430114373b6b4e49aeafcb3829737bf, type: 3}
+  enemyPrefab: {fileID: 4139469523607472967, guid: 6430114373b6b4e49aeafcb3829737bf, type: 3}
   spawnPoint: {fileID: 7608666629720379483}
   targetBase: {fileID: 2619752536740743110}
   spawnInterval: 1.5
-  enemiesPerWave: 0300000005000000
+  enemiesPerWave: 030000000500000004000000
 --- !u!114 &2477625802762312717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2966,6 +2966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94c32169c325114ab444829c12b0525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldText: {fileID: 2329303242698026509}
   gold: 0
 --- !u!114 &8221693065545638781
 MonoBehaviour:
@@ -2983,7 +2984,7 @@ MonoBehaviour:
   attackCooldown: 1
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!4 &8228253355733307382
 Transform:
   m_ObjectHideFlags: 0
@@ -3364,7 +3365,6 @@ SceneRoots:
   - {fileID: 8228253355733307382}
   - {fileID: 7244217519827002279}
   - {fileID: 6602728183217523020}
-  - {fileID: 7673559391809238206}
   - {fileID: 4214844903239178358}
   - {fileID: 8092613905317657150}
   - {fileID: 7915301304116118611}
@@ -3374,3 +3374,4 @@ SceneRoots:
   - {fileID: 1858334282458754734}
   - {fileID: 6253783258219852867}
   - {fileID: 6418725037211380011}
+  - {fileID: 7673559391809238206}
