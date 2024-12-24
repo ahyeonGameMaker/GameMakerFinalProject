@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager05 : MonoBehaviour
@@ -38,7 +39,7 @@ public class GameManager05 : MonoBehaviour
 
 	public void NextScene()
 	{
-		Debug.Log("03.OutLine");
+		SceneManager.LoadScene("03.OutLine");
 	}
 
 	public void ProjectileExplosion()
