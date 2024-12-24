@@ -38,7 +38,7 @@ public class Board : MonoBehaviour
     }
     void InitBoard()
     {
-        float spaceY = 3.05f;
+        float spaceY = 2.55f;
         float spaceX = 4.05f;
 
         int rowCount = 3;
@@ -50,7 +50,7 @@ public class Board : MonoBehaviour
         {
             for(int col =0; col< colCount; col++)
             {
-                float posY = (row - (int)(rowCount / 2)) * spaceY;
+                float posY = (row - (int)(rowCount / 2)) * spaceY - 0.75f;
                 float posX = (col - (int)(colCount / 2)) * spaceX + (spaceX/2); 
                 Vector3 pos = new Vector3(posX, posY, 0);
                 GameObject cardObject =Instantiate(cardPrefab, pos, Quaternion.identity);
