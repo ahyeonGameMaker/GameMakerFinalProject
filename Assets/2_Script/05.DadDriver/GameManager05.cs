@@ -38,7 +38,7 @@ public class GameManager05 : MonoBehaviour
 
 	public void NextScene()
 	{
-		Debug.Log("NextScene");
+		Debug.Log("03.OutLine");
 	}
 
 	public void ProjectileExplosion()

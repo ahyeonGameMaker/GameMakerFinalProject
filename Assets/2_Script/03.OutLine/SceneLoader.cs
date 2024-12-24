@@ -7,10 +7,10 @@ public class SceneLoader : MonoBehaviour
 {
     public void NextGameScene()
     {
-        //SceneManager.LoadScene("");
-    }
+		SceneManager.LoadScene("02.Island");
+	}
 
-    public void Restart()
+	public void Restart()
     {
         SceneManager.LoadScene("03.OutLine");
     }
