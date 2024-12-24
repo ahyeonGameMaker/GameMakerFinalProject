@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - FriendlyUnit
   - Enemy
+  - RemoveWall
   layers:
   - Default
   - TransparentFX
@@ -20,6 +21,8 @@ TagManager:
   - Enemy
   - Player
   - Pet
+  - Friendly
+  - Ground  
   - 
   - 
   - 
