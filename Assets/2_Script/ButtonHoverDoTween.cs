@@ -1,7 +1,7 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class ButtonHoverDOTween : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -14,6 +14,7 @@ public class ButtonHoverDOTween : MonoBehaviour, IPointerEnterHandler, IPointerE
 	[SerializeField] private Image buttonImage;  // 버튼의 Image 컴포넌트
 	public Sprite OnSprite;  // 마우스 오버 시 이미지
 	public Sprite OffSprite;  // 기본 이미지
+	private bool IsSceneButton = false;
 
 	void Start()
 	{
@@ -21,7 +22,10 @@ public class ButtonHoverDOTween : MonoBehaviour, IPointerEnterHandler, IPointerE
 
 		// 버튼 이미지 자동으로 할당
 		if (buttonImage == null)
+		{
 			buttonImage = GetComponent<Image>();
+			Debug.Log("buttonImage 초기화");
+		}
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
@@ -44,7 +48,20 @@ public class ButtonHoverDOTween : MonoBehaviour, IPointerEnterHandler, IPointerE
 				 .SetEase(Ease.OutBack);
 
 		// 원래 이미지로 복귀
-		if (buttonImage && OffSprite)
+		if (buttonImage && OffSprite && !IsSceneButton)
+		{
+			buttonImage.sprite = OffSprite;
+		}
+	}
+
+	public void SetSceneButton(bool isScene)
+	{
+		IsSceneButton = isScene;
+		if (isScene)
+		{
+			buttonImage.sprite = OnSprite;
+		}
+		else
 		{
 			buttonImage.sprite = OffSprite;
 		}

@@ -335,6 +335,7 @@ MonoBehaviour:
   buttonImage: {fileID: 403805739}
   OnSprite: {fileID: 21300000, guid: 6e1e1fdeb775bf8499320e5f2d964426, type: 3}
   OffSprite: {fileID: 21300000, guid: 079a999f541a8074e91af4b00055a2d0, type: 3}
+  SceneButton: 0
 --- !u!114 &403805738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1149,6 +1150,7 @@ MonoBehaviour:
   buttonImage: {fileID: 790995959}
   OnSprite: {fileID: 21300000, guid: 0eb3e18a88b7db346a0e6d28e218e13f, type: 3}
   OffSprite: {fileID: 21300000, guid: 1c6edd6ed092050418a94e65df85013c, type: 3}
+  SceneButton: 0
 --- !u!114 &790995958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1877,6 +1879,7 @@ MonoBehaviour:
   buttonImage: {fileID: 1190713581}
   OnSprite: {fileID: 21300000, guid: d36b1454dcbc42d4eac02cfbce35e644, type: 3}
   OffSprite: {fileID: 21300000, guid: e218b5eb887d48f4eb8115f96e9c8875, type: 3}
+  SceneButton: 0
 --- !u!114 &1190713580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2364,6 +2367,7 @@ MonoBehaviour:
   buttonImage: {fileID: 1333227988}
   OnSprite: {fileID: 21300000, guid: eeeb79a564ca61d4b9c7d96e96db5c6a, type: 3}
   OffSprite: {fileID: 21300000, guid: da64de9622b562c4d8a285672ab1f475, type: 3}
+  SceneButton: 0
 --- !u!114 &1333227987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2947,6 +2951,7 @@ MonoBehaviour:
   buttonImage: {fileID: 1880111093}
   OnSprite: {fileID: 21300000, guid: 0675c11b9fb2fc2459e66f051457108f, type: 3}
   OffSprite: {fileID: 21300000, guid: 4d882543264f7a14a80c3e5c25586b44, type: 3}
+  SceneButton: 0
 --- !u!114 &1880111092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3372,6 +3377,7 @@ MonoBehaviour:
   buttonImage: {fileID: 1959886759}
   OnSprite: {fileID: 21300000, guid: 4db6d7d1614ab1d40be5df0066e51d07, type: 3}
   OffSprite: {fileID: 21300000, guid: 51c4aa08eb3ba084894ec9b5d0046478, type: 3}
+  SceneButton: 0
 --- !u!1 &2004780531
 GameObject:
   m_ObjectHideFlags: 0

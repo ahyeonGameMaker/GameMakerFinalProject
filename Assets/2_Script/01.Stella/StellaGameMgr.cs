@@ -161,7 +161,7 @@ public class StellaGameMgr : MonoBehaviour
         while (true)
         {
             yield return new WaitForSecondsRealtime(2);
-            SceneManager.LoadScene("01.Stella");
+            SceneManager.LoadScene("99.Ending");
         }
     }
 }
