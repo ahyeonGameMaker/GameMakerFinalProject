@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameMgr : MonoBehaviour
@@ -25,7 +28,12 @@ public class GameMgr : MonoBehaviour
     public int second;
     float elapsedTime;
 
+    public GameObject gameOverPanel;
+    public GameObject gameClearPanel;
+
     private static GameMgr instance;
+    public Stone stone;
+    bool stop;
 
     public static GameMgr Instance
     {
@@ -46,6 +54,34 @@ public class GameMgr : MonoBehaviour
     public void Update()
     {
         UpdateTimer();
+    }
+
+    public void NextScene(bool clear)
+    {
+        if (!stop)
+        {
+            if (clear)
+            {
+                gameClearPanel.SetActive(true);
+            }
+            else
+            {
+                gameOverPanel.SetActive(true);
+            }
+            StartCoroutine(CoNextScene());
+        }
+        stop = true;
+
+
+    }
+
+    IEnumerator CoNextScene()
+    {
+        while (true)
+        {
+            yield return new WaitForSecondsRealtime(2);
+            SceneManager.LoadScene("01.Stella");
+        }
     }
 
     void UpdateTimer()
@@ -79,6 +115,8 @@ public class GameMgr : MonoBehaviour
 
         if (minute == 0 && second == 0)
         {
+            stone.gameStop = true;
+            player.TakeDamage(100000, null);
             return;
         }
     }

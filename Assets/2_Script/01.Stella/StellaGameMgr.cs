@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StellaGameMgr : MonoBehaviour
 {
@@ -27,6 +28,11 @@ public class StellaGameMgr : MonoBehaviour
     public TMP_Text missionTileText;
     public GameObject missionSelectButton;
     public GameObject mission;
+
+    public StellaPlayer player;
+
+    public GameObject clearText;
+    public GameObject overText;
 
     public int currentSelectMission;
 
@@ -76,59 +82,86 @@ public class StellaGameMgr : MonoBehaviour
 
     public void OnClickedSelectMissionBtn()
     {
-        switch (round)
+        if (!player.stop)
         {
-            case 0:
-                if(currentSelectMission == 4)
-                {
-                    round++;
-                    RoundStart();
-                    boss.TakeDamage(boss.maxHp / 4);
-                }
-                else
-                {
-                    boss.StartShoot();
-                }
-                break;
+            switch (round)
+            {
+                case 0:
+                    if (currentSelectMission == 4)
+                    {
+                        round++;
+                        RoundStart();
+                        boss.TakeDamage(boss.maxHp / 4);
+                    }
+                    else
+                    {
+                        boss.StartShoot();
+                    }
+                    break;
 
-            case 1:
-                if (currentSelectMission == 2)
-                {
-                    round++;
-                    RoundStart();
-                    boss.TakeDamage(boss.maxHp / 4);
-                }
-                else
-                {
-                    boss.StartShoot();
-                }
-                break;
+                case 1:
+                    if (currentSelectMission == 2)
+                    {
+                        round++;
+                        RoundStart();
+                        boss.TakeDamage(boss.maxHp / 4);
+                    }
+                    else
+                    {
+                        boss.StartShoot();
+                    }
+                    break;
 
-            case 2:
-                if (currentSelectMission == 1)
-                {
-                    round++;
-                    RoundStart();
-                    boss.TakeDamage(boss.maxHp / 4);
-                }
-                else
-                {
-                    boss.StartShoot();
-                }
-                break;
+                case 2:
+                    if (currentSelectMission == 1)
+                    {
+                        round++;
+                        RoundStart();
+                        boss.TakeDamage(boss.maxHp / 4);
+                    }
+                    else
+                    {
+                        boss.StartShoot();
+                    }
+                    break;
 
-            case 3:
-                if (currentSelectMission == 1)
-                {
-                    round++;
-                    RoundStart();
-                    boss.TakeDamage(boss.maxHp / 4);
-                }
-                else
-                {
-                    boss.StartShoot();
-                }
-                break;
+                case 3:
+                    if (currentSelectMission == 1)
+                    {
+                        round++;
+                        RoundStart();
+                        boss.TakeDamage(boss.maxHp / 4);
+                    }
+                    else
+                    {
+                        boss.StartShoot();
+                    }
+                    break;
+            }
+        }
+        
+    }
+
+    public void NextScene(bool gameClear)
+    {
+        mission.SetActive(false);
+        if (gameClear)
+        {
+            clearText.SetActive(true);
+        }
+        else
+        {
+            overText.SetActive(true);
+        }
+        StartCoroutine(CoNextScene());
+    }
+
+    IEnumerator CoNextScene()
+    {
+        while (true)
+        {
+            yield return new WaitForSecondsRealtime(2);
+            SceneManager.LoadScene("01.Stella");
         }
     }
 }
