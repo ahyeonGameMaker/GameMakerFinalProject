@@ -10,11 +10,18 @@ public class PetAttack : MonoBehaviour
     private Transform currentTarget; // 현재 탐지된 적
     private Transform attackTarget; // 공격 범위 안의 적
     private PetMovement petMovement; // PetMovement 스크립트 참조
+    private Animator animator; // Animator 컴포넌트
 
     void Start()
     {
         attackTimer = 0f; // 타이머 초기화
         petMovement = GetComponentInParent<PetMovement>(); // PetMovement 참조
+        animator = GetComponentInParent<Animator>(); // Animator 컴포넌트 가져오기
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator 컴포넌트가 필요합니다.");
+        }
     }
 
     void Update()
@@ -79,7 +86,14 @@ public class PetAttack : MonoBehaviour
     {
         if (attackTarget != null)
         {
-            Debug.Log($"적 {attackTarget.name}을(를) 공격!");
+            Debug.Log($"펫이 적 {attackTarget.name}을(를) 공격!");
+
+            // 애니메이터의 Attack 트리거 활성화
+            if (animator != null)
+            {
+                animator.SetTrigger("IsAttack");
+            }
+
             var targetHealth = attackTarget.GetComponent<Enemy>();
             if (targetHealth != null)
             {
