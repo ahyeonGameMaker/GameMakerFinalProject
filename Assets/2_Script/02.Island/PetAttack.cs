@@ -10,11 +10,18 @@ public class PetAttack : MonoBehaviour
     private Transform currentTarget; // 현재 탐지된 적
     private Transform attackTarget; // 공격 범위 안의 적
     private PetMovement petMovement; // PetMovement 스크립트 참조
+    private Animator animator; // Animator 컴포넌트
 
     void Start()
     {
         attackTimer = 0f; // 타이머 초기화
         petMovement = GetComponentInParent<PetMovement>(); // PetMovement 참조
+        animator = GetComponentInParent<Animator>(); // Animator 컴포넌트 가져오기
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator 컴포넌트가 필요합니다.");
+        }
     }
 
     void Update()
@@ -61,7 +68,8 @@ public class PetAttack : MonoBehaviour
 
         foreach (var hit in hits)
         {
-            if (hit.CompareTag("Enemy"))
+            // Enemy 태그 또는 Health 컴포넌트를 가진 오브젝트 탐지
+            if (hit.CompareTag("Enemy") || hit.GetComponent<Health>() != null)
             {
                 float distance = Vector2.Distance(transform.position, hit.transform.position);
                 if (distance < closestDistance)
@@ -79,19 +87,37 @@ public class PetAttack : MonoBehaviour
     {
         if (attackTarget != null)
         {
-            Debug.Log($"적 {attackTarget.name}을(를) 공격!");
-            var targetHealth = attackTarget.GetComponent<Enemy>();
-            if (targetHealth != null)
+            Debug.Log($"펫이 적 {attackTarget.name}을(를) 공격!");
+
+            // 애니메이터의 Attack 트리거 활성화
+            if (animator != null)
             {
-                targetHealth.TakeDamage(attackDamage); // 체력 감소
+                animator.SetTrigger("IsAttack");
             }
+
+            // Enemy 또는 Health에 데미지 전달
+            var enemyComponent = attackTarget.GetComponent<Enemy>();
+            if (enemyComponent != null)
+            {
+                enemyComponent.TakeDamage(attackDamage);
+                return;
+            }
+
+            var healthComponent = attackTarget.GetComponent<Health>();
+            if (healthComponent != null)
+            {
+                healthComponent.TakeDamage(attackDamage);
+                return;
+            }
+
+            Debug.LogWarning($"{attackTarget.name}는 데미지를 받을 수 있는 컴포넌트가 없습니다.");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // 공격 범위에 들어온 적 설정
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy") || collision.GetComponent<Health>() != null)
         {
             attackTarget = collision.transform;
         }

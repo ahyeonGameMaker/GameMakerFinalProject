@@ -8,7 +8,7 @@ public class GoldManager : MonoBehaviour
 {
     public static GoldManager instance;
 
-    public Text goldText;
+    public TextMeshProUGUI goldText;
 
     private void Awake()
     {
