@@ -30,9 +30,13 @@ public class CameraMovement : MonoBehaviour
 
 	public IEnumerator TypingText()
 	{
-		string[] strings = new string[3]{ "20XX년 X월 X일 X요일 오후 HH시 MM분",
-											  "유니티 한글 타이퍼 오토 타이핑 데모 씬",
-											  "이 데모는 자동으로 작성되고 있습니다." };
+		string[] strings = new string[]{ "함께 한 1년, 그리고 앞으로의 우리.",
+			"함께라서 더 즐거웠던 순간들",
+			"매일이 새로운 도전과 배움",
+			"소소하지만 특별했던 일상",
+			"웃고 떠들던 교실이 그리울 거야",
+			"우리가 만든 게임, 우리가 만든 추억",
+			"게임으로 하나된 우리들의 이야기"};
 
 		TestTexts.text = "";
 		for (int t = 0; t < strings.Length; t++)

@@ -6893,7 +6893,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 0
   m_Text: "2024\uD559\uB144\uB3C4 \uC544\uD604\uC0B0\uC5C5\uC815\uBCF4\uD559\uAD50
-    \uAC8C\uC784\uC81C\uC791\uACFC"
+    \uAC8C\uC784\uC81C\uC791\uACFC, \uC6B0\uB9AC\uC758 1\uB144\uC744 \uB3CC\uC544\uBCF4\uB2E4"
 --- !u!222 &1734176122
 CanvasRenderer:
   m_ObjectHideFlags: 0
