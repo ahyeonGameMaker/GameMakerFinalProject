@@ -686,8 +686,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29786ac35a65e9343bc95ff9ca4da95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 10
-  attackCooldown: 2
+  attackDamage: 8
+  attackCooldown: 1
   isAttacking: 0
 --- !u!1 &6144348990167906702
 GameObject:
@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e13e5ef07ee2749b05e02fb1a75734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 120
 --- !u!50 &377340710778545650
 Rigidbody2D:
   serializedVersion: 4
