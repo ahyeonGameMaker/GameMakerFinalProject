@@ -34,7 +34,8 @@ public class Unit : MonoBehaviour, IFighter
     bool die;
     public bool knockDown;
     public Image fKeyImage;
-
+    public AudioSource attacksound;
+    public AudioSource AttackSound { get => attacksound; }
     Color damageColor;
 
     public GameObject FighterObject { get => gameObject; }
@@ -180,8 +181,9 @@ public class Unit : MonoBehaviour, IFighter
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, AudioSource attackSound)
     {
+        attackSound.Play();
         hp -= damage;
         hpBarImage.fillAmount = hp / maxHp;
         if (hp <= 0)
@@ -344,7 +346,7 @@ public class Unit : MonoBehaviour, IFighter
                 if (closestTarget != null)
                 {
                     if (closestTarget.GetComponent<IFighter>() != null)
-                        closestTarget.GetComponent<IFighter>().TakeDamage(damage);
+                        closestTarget.GetComponent<IFighter>().TakeDamage(damage, attacksound);
                 }
             }
             else
@@ -364,7 +366,7 @@ public class Unit : MonoBehaviour, IFighter
 
                     if (hitTargets[i].GetComponent<IFighter>() != null)
                     {
-                        hitTargets[i].GetComponent<IFighter>().TakeDamage(damage);
+                        hitTargets[i].GetComponent<IFighter>().TakeDamage(damage, attacksound);
                     }
                         
                 }

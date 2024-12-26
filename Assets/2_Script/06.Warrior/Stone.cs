@@ -14,7 +14,10 @@ public class Stone : MonoBehaviour, IFighter
     Coroutine takeDamageColorChange;
     Color damageColor;
     public TMP_Text hpText;
+    public AudioSource audioSource;
+    public AudioSource AttackSound { get => audioSource; }
     public GameObject FighterObject { get => gameObject; }
+    public bool gameStop;
     void Start()
     {
         hp = maxHp;
@@ -23,34 +26,42 @@ public class Stone : MonoBehaviour, IFighter
         GetComponent<SpriteRenderer>().color = Color.white;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, AudioSource attackSound)
     {
-        hp -= damage;
-        hpBarImage.fillAmount = hp / maxHp;
-        hpText.text = hp + "/" + maxHp;
-        if (hp <= 0)
-        {
-            damageColor = GetComponent<SpriteRenderer>().color = Color.white;
-            GetComponent<SpriteRenderer>().color = Color.white;
-        }
 
-        if (takeDamageColorChange != null)
+        attackSound.Play();
+        if (!gameStop)
         {
-            StopCoroutine(takeDamageColorChange);
-            takeDamageColorChange = null;
-        }
-        if (smoothHpBar != null)
-        {
-            StopCoroutine(smoothHpBar);
-            smoothHpBar = null;
-        }
+            hp -= damage;
+            hpBarImage.fillAmount = hp / maxHp;
+            hpText.text = hp + "/" + maxHp;
+            if (hp <= 0)
+            {
+                damageColor = GetComponent<SpriteRenderer>().color = Color.white;
+                GetComponent<SpriteRenderer>().color = Color.white;
+            }
 
-        if (gameObject.activeInHierarchy)
-        {
-            smoothHpBar = StartCoroutine(CoSmoothHpBar(hpBarImage.fillAmount, 1));
-            takeDamageColorChange = StartCoroutine(CoTakeDamageColorChange());
-        }
+            if (takeDamageColorChange != null)
+            {
+                StopCoroutine(takeDamageColorChange);
+                takeDamageColorChange = null;
+            }
+            if (smoothHpBar != null)
+            {
+                StopCoroutine(smoothHpBar);
+                smoothHpBar = null;
+            }
 
+            if (gameObject.activeInHierarchy)
+            {
+                smoothHpBar = StartCoroutine(CoSmoothHpBar(hpBarImage.fillAmount, 1));
+                takeDamageColorChange = StartCoroutine(CoTakeDamageColorChange());
+            }
+            if (hp <= 0)
+            {
+                GameMgr.Instance.NextScene(true);
+            }
+        }
     }
 
     private IEnumerator CoSmoothHpBar(float targetFillAmount, float duration)
@@ -66,6 +77,7 @@ public class Stone : MonoBehaviour, IFighter
         }
 
         hpBarSecondImage.fillAmount = targetFillAmount;
+        
     }
 
     IEnumerator CoTakeDamageColorChange()

@@ -33,11 +33,16 @@ public class WarriorPlayer : MonoBehaviour, IFighter
     public int damage;
     int currentDmage;
 
+    Collider2D col;
+
     public LayerMask targetLayer;
     Color damageColor;
     Coroutine takeDamageColorChange;
 
+    bool isStop;
 
+    public AudioSource attacksound;
+    public AudioSource AttackSound { get => attacksound; }
     public GameObject FighterObject { get => gameObject; }
 
     private void Start()
@@ -47,18 +52,27 @@ public class WarriorPlayer : MonoBehaviour, IFighter
         animationEventHandler = GetComponentInChildren<AnimationEventHandler>();
         animationEventHandler.endAttackListener += EndAttack;
         animationEventHandler.startAttackListener += StartAttack;
+        animationEventHandler.dieAttackListener += Die;
         hp = maxHp;
+        col = GetComponent<Collider2D>();
     }
 
     private void Update()
     {
-        Attack();
-        if (!canAttack)
+        if (!isStop)
         {
-            Jump();
-            Move();
+            Attack();
+            if (!canAttack)
+            {
+                Jump();
+                Move();
+            }
         }
+    }
 
+    void Die()
+    {
+        GameMgr.Instance.NextScene(false);
     }
 
 
@@ -73,7 +87,6 @@ public class WarriorPlayer : MonoBehaviour, IFighter
             hpBarSecondImage.fillAmount = Mathf.Lerp(startFillAmount, targetFillAmount, elapsedTime / duration);
             yield return null;
         }
-
         hpBarSecondImage.fillAmount = targetFillAmount;
     }
     void Attack()
@@ -136,8 +149,10 @@ public class WarriorPlayer : MonoBehaviour, IFighter
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, AudioSource attackSound)
     {
+        if(attackSound != null)
+            attackSound.Play();
         hp -= damage;
         hpBarImage.fillAmount = hp / maxHp;
         if (smoothHpBar != null)
@@ -152,6 +167,13 @@ public class WarriorPlayer : MonoBehaviour, IFighter
         }
         smoothHpBar = StartCoroutine(CoSmoothHpBar(hpBarImage.fillAmount, 1));
         takeDamageColorChange = StartCoroutine(CoTakeDamageColorChange());
+        if(hp <= 0)
+        {
+            animator.Play("Die");
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            isStop = true;
+            col.enabled = false;
+        }
     }
     void EndAttack()
     {
@@ -176,11 +198,11 @@ public class WarriorPlayer : MonoBehaviour, IFighter
                 Debug.Log(targets[i].name);
                 if (targets[i].gameObject.GetComponent<Unit>() != null && targets[i].gameObject.GetComponent<Unit>().unitType == UnitType.Enemy) 
                 {
-                    targets[i].gameObject.GetComponent<IFighter>().TakeDamage(currentDmage); 
+                    targets[i].gameObject.GetComponent<IFighter>().TakeDamage(currentDmage, attacksound); 
                 }
                 if(targets[i].gameObject.GetComponent<Stone>() != null)
                 {
-                    targets[i].gameObject.GetComponent<IFighter>().TakeDamage(currentDmage);
+                    targets[i].gameObject.GetComponent<IFighter>().TakeDamage(currentDmage, attacksound);
                 }
             }
         }

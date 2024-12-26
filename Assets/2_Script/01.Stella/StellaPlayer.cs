@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class StellaPlayer : MonoBehaviour
@@ -16,15 +17,19 @@ public class StellaPlayer : MonoBehaviour
 
     Coroutine smoothHpBar;
 
+    AudioSource audioSource;
+
     private void Start()
     {
         hp = maxHp;
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
     }
 
     public void TakeDamge(float damage)
     {
+        audioSource.Play();
         hp -= damage;
         hpBarImage.fillAmount = hp / maxHp;
         if (smoothHpBar != null)
@@ -37,9 +42,21 @@ public class StellaPlayer : MonoBehaviour
 
     private void Update()
     {
+        rb.velocity = Vector2.zero;
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(moveX, moveY).normalized * moveSpeed;
+
+        Vector2 moveDirection = new Vector2(moveX, moveY);
+        if (moveDirection.sqrMagnitude > 0.01f)
+        {
+            rb.velocity = moveDirection.normalized * moveSpeed;
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+        rb.velocity = moveDirection * moveSpeed;
 
         ClampPlayerPosition();
     }

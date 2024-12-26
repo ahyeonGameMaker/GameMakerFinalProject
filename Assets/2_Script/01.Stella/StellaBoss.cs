@@ -27,9 +27,11 @@ public class StellaBoss : MonoBehaviour
     public float maxHp;
 
     Coroutine smoothHpBar;
-
+    AudioSource audioSource;
+    public AudioSource hitSound;
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         hp = maxHp;
     }
 
@@ -74,7 +76,7 @@ public class StellaBoss : MonoBehaviour
     public void Shoot()
     {
         BossBullet bullet = null;
-
+        audioSource.Play();
         for (int i = 0; i < bossBulletPooling.Count; i++)
         {
             if (!bossBulletPooling[i].gameObject.activeSelf)
@@ -108,6 +110,7 @@ public class StellaBoss : MonoBehaviour
     }
     public void TakeDamage(float damge)
     {
+        hitSound.Play();
         hp -= damge;
         hpBarImage.fillAmount = hp / maxHp;
         if (smoothHpBar != null)
