@@ -1,47 +1,64 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class TopBarManager : MonoBehaviour
 {
     private static TopBarManager instance;
-	private ButtonHoverDOTween[] buttons;
-	//private Image[] butonImages;
-
-	private void Awake()
-	{
-		if (instance == null)
+    private ButtonHoverDOTween[] buttons;
+    public List<SceneData> scenes = new List<SceneData>();
+    //private Image[] butonImages;
+    public static TopBarManager Instance
+    {
+        get
         {
-			instance = this;
-			DontDestroyOnLoad(gameObject);
-		} else
+            return instance;
+        }
+    }
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
         {
             Destroy(gameObject);
         }
-	}
+    }
 
-	private void Start()
-	{
-		buttons = gameObject.GetComponentsInChildren<ButtonHoverDOTween>();
-	}
+    private void Start()
+    {
+        buttons = gameObject.GetComponentsInChildren<ButtonHoverDOTween>();
+    }
 
-	public void LoadScene(int SceneNumber)
-	{
-		if (SceneNumber == 1) { SceneManager.LoadScene("04.DollMaker"); }
-		else if (SceneNumber == 2) { SceneManager.LoadScene("05.DadDriver"); }
-		else if (SceneNumber == 3) { SceneManager.LoadScene("03.OutLine"); }
-		else if (SceneNumber == 4) { SceneManager.LoadScene("01.Stella"); }
-		else if (SceneNumber == 5) { SceneManager.LoadScene("06.Warrior"); }
-		else if (SceneNumber == 6) { SceneManager.LoadScene("01.Stella"); }
+    public void EndGame(int sceneNumber)
+    {
+        SceneData sceneData = scenes[sceneNumber - 1];
+        sceneData.isClear = true;
+    }
 
-		for (int i = 0; i < buttons.Length; i++)
-		{
-			buttons[i].SetSceneButton((i == SceneNumber - 1) ? true : false);
-		}
+    public void LoadScene(int sceneNumber)
+    {
+        SceneData sceneData = scenes[sceneNumber - 1];
+        if (!sceneData.isClear)
+        {
+            SceneManager.LoadScene(sceneData.sceneName);
+        }
 
-	}
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].SetSceneButton((i == sceneNumber - 1) ? true : false);
+        }
+
+    }
+}
+
+[System.Serializable]
+public class SceneData
+{
+    public string sceneName;
+    public bool isClear;
 }

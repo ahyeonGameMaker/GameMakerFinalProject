@@ -9,8 +9,9 @@ public class CameraMovement : MonoBehaviour
 	public Text TestTexts;
 	public GameObject BtnObj;
 	public float moveSpeed = 2f;
+	public TopBarManager topBarManager;
 
-	private void Start()
+    private void Start()
 	{
 		transform.position = new Vector3(transform.position.x, transform.position.y, 20f);
 
@@ -53,6 +54,8 @@ public class CameraMovement : MonoBehaviour
 
 	public void NextScene()
 	{
-		SceneManager.LoadScene("04.DollMaker");
+		topBarManager.gameObject.SetActive(true);
+
+        SceneManager.LoadScene("04.DollMaker");
 	}
 }
