@@ -19,6 +19,8 @@ public class StellaPlayer : MonoBehaviour
 
     AudioSource audioSource;
 
+    public bool stop;
+
     private void Start()
     {
         hp = maxHp;
@@ -38,26 +40,33 @@ public class StellaPlayer : MonoBehaviour
             smoothHpBar = null;
         }
         smoothHpBar = StartCoroutine(CoSmoothHpBar(hpBarImage.fillAmount, 1));
+        if(hp <= 0)
+        {
+            stop = true;
+            StellaGameMgr.Instance.NextScene(false);
+        }
     }
 
     private void Update()
     {
-        rb.velocity = Vector2.zero;
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
-
-        Vector2 moveDirection = new Vector2(moveX, moveY);
-        if (moveDirection.sqrMagnitude > 0.01f)
-        {
-            rb.velocity = moveDirection.normalized * moveSpeed;
-        }
-        else
+        if (!stop)
         {
             rb.velocity = Vector2.zero;
+            float moveX = Input.GetAxis("Horizontal");
+            float moveY = Input.GetAxis("Vertical");
+
+            Vector2 moveDirection = new Vector2(moveX, moveY);
+            if (moveDirection.sqrMagnitude > 0.01f)
+            {
+                rb.velocity = moveDirection.normalized * moveSpeed;
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
+            }
+
+            rb.velocity = moveDirection * moveSpeed;
         }
-
-        rb.velocity = moveDirection * moveSpeed;
-
         ClampPlayerPosition();
     }
 

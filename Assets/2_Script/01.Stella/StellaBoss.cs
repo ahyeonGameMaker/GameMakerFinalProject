@@ -119,6 +119,11 @@ public class StellaBoss : MonoBehaviour
             smoothHpBar = null;
         }
         smoothHpBar = StartCoroutine(CoSmoothHpBar(hpBarImage.fillAmount, 1));
+        if(hp <= 0)
+        {
+            StellaGameMgr.Instance.player.stop = true;
+            StellaGameMgr.Instance.NextScene(true);
+        }
     }
 
     void ActivateBullet(BossBullet bullet)
