@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6554042402792136225}
   - component: {fileID: 2755977315124204070}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Front leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8694371154575775992}
   - component: {fileID: 5636561871169560491}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Back arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 4894744275369867428}
   - component: {fileID: 4535820052151864559}
   - component: {fileID: 1343874648204997943}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Archer
   m_TagString: FriendlyUnit
   m_Icon: {fileID: 0}
@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  currentHealth: 0
 --- !u!50 &4535820052151864559
 Rigidbody2D:
   serializedVersion: 4
@@ -337,7 +338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8714513623541521546}
   - component: {fileID: 4814238916132094834}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,7 +422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 606121824184660352}
   - component: {fileID: 659756396231901719}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +507,7 @@ GameObject:
   - component: {fileID: 1035676305069873043}
   - component: {fileID: 2213821651289651479}
   - component: {fileID: 8406602826771400626}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: AttackBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8474928338543323325}
   - component: {fileID: 7773127976686614809}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Back leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -682,7 +683,7 @@ GameObject:
   m_Component:
   - component: {fileID: 782265277254230001}
   - component: {fileID: 3985331064911513339}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -766,7 +767,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2440002022745085555}
   - component: {fileID: 7668191485310067553}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Front arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -851,7 +852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4457681363788847060}
   - component: {fileID: 8760415308886230844}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

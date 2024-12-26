@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Island_GameManager : MonoBehaviour
 {
     public static Island_GameManager instance; // 싱글톤 패턴
-    public GameObject enemyPortal; // Enemy Portal 오브젝트
+    public List<GameObject> targetObjects; // 감지할 오브젝트 목록
     public GameObject gameOverUI; // 게임 오버 UI 오브젝트
 
     private bool isGameOver = false; // 게임 오버 상태 플래그
@@ -29,21 +30,26 @@ public class Island_GameManager : MonoBehaviour
             gameOverUI.SetActive(false);
         }
 
-        // Enemy Portal이 설정되지 않았을 경우 경고 출력
-        if (enemyPortal == null)
+        // 감지 대상 목록에 비어 있는 항목이 있으면 경고 출력
+        if (targetObjects == null || targetObjects.Count == 0)
         {
-            Debug.LogError("Enemy Portal이 설정되지 않았습니다.");
+            Debug.LogWarning("감지할 대상 오브젝트가 설정되지 않았습니다.");
         }
     }
 
     void Update()
     {
-        // Enemy Portal이 파괴되었는지 확인
-        if (enemyPortal == null && !isGameOver)
+        // 감지 대상 오브젝트 체크
+        for (int i = targetObjects.Count - 1; i >= 0; i--)
         {
-            GameOver();
+            if (targetObjects[i] == null) // 오브젝트가 사라진 경우
+            {
+                GameOver(); // 즉시 게임 오버
+                return; // 중복 호출 방지
+            }
         }
     }
+
 
     public void GameOver()
     {

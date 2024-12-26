@@ -68,8 +68,7 @@ public class PetAttack : MonoBehaviour
 
         foreach (var hit in hits)
         {
-            // Enemy 태그 또는 Health 컴포넌트를 가진 오브젝트 탐지
-            if (hit.CompareTag("Enemy") || hit.GetComponent<Health>() != null)
+            if (hit.CompareTag("Enemy"))
             {
                 float distance = Vector2.Distance(transform.position, hit.transform.position);
                 if (distance < closestDistance)
@@ -95,29 +94,18 @@ public class PetAttack : MonoBehaviour
                 animator.SetTrigger("IsAttack");
             }
 
-            // Enemy 또는 Health에 데미지 전달
-            var enemyComponent = attackTarget.GetComponent<Enemy>();
-            if (enemyComponent != null)
+            var targetHealth = attackTarget.GetComponent<Enemy>();
+            if (targetHealth != null)
             {
-                enemyComponent.TakeDamage(attackDamage);
-                return;
+                targetHealth.TakeDamage(attackDamage); // 체력 감소
             }
-
-            var healthComponent = attackTarget.GetComponent<Health>();
-            if (healthComponent != null)
-            {
-                healthComponent.TakeDamage(attackDamage);
-                return;
-            }
-
-            Debug.LogWarning($"{attackTarget.name}는 데미지를 받을 수 있는 컴포넌트가 없습니다.");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // 공격 범위에 들어온 적 설정
-        if (collision.CompareTag("Enemy") || collision.GetComponent<Health>() != null)
+        if (collision.CompareTag("Enemy"))
         {
             attackTarget = collision.transform;
         }

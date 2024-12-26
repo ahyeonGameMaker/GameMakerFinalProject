@@ -71,8 +71,9 @@ public class UnitAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Enemy 태그 또는 Health 컴포넌트를 가진 오브젝트만 타겟으로 설정
-        if (collision.CompareTag("Enemy") || collision.GetComponent<Health>() != null)
+        // FriendlyUnit 태그를 제외하고 Enemy 태그 또는 Health 컴포넌트를 가진 오브젝트만 타겟으로 설정
+        if ((collision.CompareTag("Enemy") || collision.GetComponent<Health>() != null)
+            && !collision.CompareTag("FriendlyUnit"))
         {
             currentTarget = collision.transform; // 공격 대상 설정
             isAttacking = true; // 이동 중단
@@ -88,4 +89,5 @@ public class UnitAttack : MonoBehaviour
             isAttacking = false; // 이동 재개
         }
     }
+
 }

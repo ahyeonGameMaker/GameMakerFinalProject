@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3889209413117288225}
   - component: {fileID: 2399585503736883156}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Back arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7122021708609637864}
   - component: {fileID: 655985882846892477}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2741122191784704078}
   - component: {fileID: 2721587507655374807}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Front arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 1529511931662907482}
   - component: {fileID: 9139603289509145195}
   - component: {fileID: 8726642248215366258}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: AttackBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8653616788491701825}
   - component: {fileID: 1969231056711233536}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1686239032571610292}
   - component: {fileID: 4433034718388348978}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Back leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -533,7 +533,7 @@ GameObject:
   - component: {fileID: 4154520950105888730}
   - component: {fileID: 5826931816380276135}
   - component: {fileID: 4712143125196572488}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Soldier
   m_TagString: FriendlyUnit
   m_Icon: {fileID: 0}
@@ -605,6 +605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  currentHealth: 0
 --- !u!61 &5826931816380276135
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -687,7 +688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5626872776908419616}
   - component: {fileID: 4944158112611228843}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -771,7 +772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 823669089672685707}
   - component: {fileID: 6057168515963240341}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Front leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
