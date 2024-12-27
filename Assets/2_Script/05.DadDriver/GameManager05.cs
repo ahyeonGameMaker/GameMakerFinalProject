@@ -39,7 +39,8 @@ public class GameManager05 : MonoBehaviour
 
 	public void NextScene()
 	{
-		SceneManager.LoadScene("03.OutLine");
+        TopBarManager.Instance.LoadScene(3);
+        SceneManager.LoadScene("03.OutLine");
 	}
 
 	public void ProjectileExplosion()

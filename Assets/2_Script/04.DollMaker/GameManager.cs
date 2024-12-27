@@ -155,6 +155,7 @@ public class GameManager : MonoBehaviour
     }
     public void Restart()
     {
+        TopBarManager.Instance.LoadScene(2);
         SceneManager.LoadScene("05.DadDriver");
     }
 

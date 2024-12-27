@@ -18,11 +18,13 @@ public class Island_SceneManager : MonoBehaviour
 
     public void ReLoadScene()
     {
+        TopBarManager.Instance.LoadScene(4);
         SceneManager.LoadScene("02.Island");
     }
 
     public void NextScene()
     {
+        TopBarManager.Instance.LoadScene(5);
         SceneManager.LoadScene("06.Warrior");
     }
 }

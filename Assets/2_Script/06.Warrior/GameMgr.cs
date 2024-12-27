@@ -80,6 +80,7 @@ public class GameMgr : MonoBehaviour
         while (true)
         {
             yield return new WaitForSecondsRealtime(2);
+            TopBarManager.Instance.LoadScene(6);
             SceneManager.LoadScene("01.Stella");
         }
     }
