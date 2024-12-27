@@ -10,10 +10,11 @@ public class UIManager : MonoBehaviour
     public GameObject nextBtn;
 
     public static UIManager instance;
-
+    public bool clear;
     private void Awake()
     {
         instance = this;
+        clear = false;
     }
 
     public void GaemOverUI()

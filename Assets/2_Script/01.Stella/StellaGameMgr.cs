@@ -158,12 +158,9 @@ public class StellaGameMgr : MonoBehaviour
 
     IEnumerator CoNextScene()
     {
-        while (true)
-        {
-            yield return new WaitForSecondsRealtime(2);
-            TopBarManager.Instance.LoadScene(7);
-            SceneManager.LoadScene("99.Ending");
-        }
+        yield return new WaitForSecondsRealtime(2);
+        TopBarManager.Instance.EndGame(6);
+        TopBarManager.Instance.LoadScene(7);
     }
 }
 [System.Serializable]

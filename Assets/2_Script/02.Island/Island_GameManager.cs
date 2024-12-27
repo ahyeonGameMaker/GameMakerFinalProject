@@ -8,7 +8,7 @@ public class Island_GameManager : MonoBehaviour
     public GameObject gameOverUI; // 게임 오버 UI 오브젝트
 
     private bool isGameOver = false; // 게임 오버 상태 플래그
-
+    public Island_SceneManager island_SceneManager;
     void Awake()
     {
         // 싱글톤 설정
@@ -39,21 +39,24 @@ public class Island_GameManager : MonoBehaviour
 
     void Update()
     {
-        // 감지 대상 오브젝트 체크
-        for (int i = targetObjects.Count - 1; i >= 0; i--)
+        if (targetObjects[0] == null) // 게임 클리어
         {
-            if (targetObjects[i] == null) // 오브젝트가 사라진 경우
-            {
-                GameOver(); // 즉시 게임 오버
-                return; // 중복 호출 방지
-            }
+            GameOver();
+            island_SceneManager.clear = true;
+            return; 
+        }
+        if (targetObjects[1] == null) // 게임 오버
+        {
+            GameOver();
+            island_SceneManager.clear = false;
+            return; 
         }
     }
 
 
     public void GameOver()
     {
-        isGameOver = true; // 게임 오버 상태 설정
+        isGameOver = true; 
 
         // 게임 오버 UI 활성화
         if (gameOverUI != null)

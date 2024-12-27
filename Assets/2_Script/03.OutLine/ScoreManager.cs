@@ -7,7 +7,6 @@ public class ScoreManager : MonoBehaviour
     public float score;
 
     public static ScoreManager instance;
-
     private void Awake()
     {
         instance = this;

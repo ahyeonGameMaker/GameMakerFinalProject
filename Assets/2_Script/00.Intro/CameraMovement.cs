@@ -57,6 +57,5 @@ public class CameraMovement : MonoBehaviour
         TopBarManager.Instance.gameObject.SetActive(true);
 
 		TopBarManager.Instance.LoadScene(1);
-        SceneManager.LoadScene("04.DollMaker");
 	}
 }

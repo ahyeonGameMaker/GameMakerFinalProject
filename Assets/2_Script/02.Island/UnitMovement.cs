@@ -32,8 +32,12 @@ public class UnitMovement : MonoBehaviour
         else
         {
             // 적 기지 방향으로 이동
-            MoveTowardsTarget(targetEnemyBase.position);
-            UpdateWalkingAnimation(true); // 이동 애니메이션 활성화
+            if(targetEnemyBase != null)
+            {
+                MoveTowardsTarget(targetEnemyBase.position);
+                UpdateWalkingAnimation(true); // 이동 애니메이션 활성화
+            }
+           
         }
     }
 

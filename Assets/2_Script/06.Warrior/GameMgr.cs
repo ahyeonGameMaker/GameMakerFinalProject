@@ -34,6 +34,8 @@ public class GameMgr : MonoBehaviour
     private static GameMgr instance;
     public Stone stone;
     bool stop;
+    bool clear;
+    
 
     public static GameMgr Instance
     {
@@ -60,6 +62,7 @@ public class GameMgr : MonoBehaviour
     {
         if (!stop)
         {
+            this.clear = clear;
             if (clear)
             {
                 gameClearPanel.SetActive(true);
@@ -77,12 +80,11 @@ public class GameMgr : MonoBehaviour
 
     IEnumerator CoNextScene()
     {
-        while (true)
-        {
-            yield return new WaitForSecondsRealtime(2);
-            TopBarManager.Instance.LoadScene(6);
-            SceneManager.LoadScene("01.Stella");
-        }
+        yield return new WaitForSecondsRealtime(2);
+        if (clear)
+            TopBarManager.Instance.EndGame(5);
+        TopBarManager.Instance.LoadScene(6);
+
     }
 
     void UpdateTimer()

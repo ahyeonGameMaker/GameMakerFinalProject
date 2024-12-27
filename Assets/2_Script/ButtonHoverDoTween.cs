@@ -15,6 +15,7 @@ public class ButtonHoverDOTween : MonoBehaviour, IPointerEnterHandler, IPointerE
 	public Sprite OnSprite;  // 마우스 오버 시 이미지
 	public Sprite OffSprite;  // 기본 이미지
 	private bool IsSceneButton = false;
+	public Image clearImage;
 
 	void Start()
 	{

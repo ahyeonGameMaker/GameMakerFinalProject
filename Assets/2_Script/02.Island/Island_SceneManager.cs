@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Island_SceneManager : MonoBehaviour
 {
+    public bool clear;
     void Start()
     {
         
@@ -19,12 +20,12 @@ public class Island_SceneManager : MonoBehaviour
     public void ReLoadScene()
     {
         TopBarManager.Instance.LoadScene(4);
-        SceneManager.LoadScene("02.Island");
     }
 
     public void NextScene()
     {
+        if (clear)
+            TopBarManager.Instance.EndGame(4);
         TopBarManager.Instance.LoadScene(5);
-        SceneManager.LoadScene("06.Warrior");
     }
 }

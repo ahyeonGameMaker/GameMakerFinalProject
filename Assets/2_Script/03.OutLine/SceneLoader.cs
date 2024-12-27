@@ -7,13 +7,13 @@ public class SceneLoader : MonoBehaviour
 {
     public void NextGameScene()
     {
+        if (UIManager.instance.clear == true)
+            TopBarManager.Instance.EndGame(3);
         TopBarManager.Instance.LoadScene(4);
-        SceneManager.LoadScene("02.Island");
 	}
 
 	public void Restart()
     {
         TopBarManager.Instance.LoadScene(3);
-        SceneManager.LoadScene("03.OutLine");
     }
 }

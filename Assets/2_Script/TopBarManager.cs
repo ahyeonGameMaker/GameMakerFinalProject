@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TopBarManager : MonoBehaviour
 {
     private static TopBarManager instance;
     private ButtonHoverDOTween[] buttons;
     public List<SceneData> scenes = new List<SceneData>();
+    public Image clearSceneImage;
     //private Image[] butonImages;
     public static TopBarManager Instance
     {
@@ -36,12 +39,23 @@ public class TopBarManager : MonoBehaviour
 
     public void EndGame(int sceneNumber)
     {
+        ButtonHoverDOTween buttonsDOTween = buttons[sceneNumber].GetComponent<ButtonHoverDOTween>();
+        buttonsDOTween.clearImage.gameObject.SetActive(true);
+        buttonsDOTween.OnPointerExit(null);
+        buttonsDOTween.enabled = false;
+        buttons[sceneNumber].GetComponent<Button>().enabled = false;
         SceneData sceneData = scenes[sceneNumber];
         sceneData.isClear = true;
     }
 
     public void LoadScene(int sceneNumber)
     {
+        if (scenes[sceneNumber].isClear)
+        {
+            clearSceneImage.gameObject.SetActive(true);
+            return;
+        }
+        clearSceneImage.gameObject.SetActive(false);
         SceneData sceneData = scenes[sceneNumber];
         if (!sceneData.isClear)
         {

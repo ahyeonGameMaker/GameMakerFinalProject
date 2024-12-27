@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource G_F;
     [SerializeField] private AudioSource G_S;
 
+    bool success;
+
     void Awake()
     {
         if(instance == null)
@@ -133,7 +135,7 @@ public class GameManager : MonoBehaviour
         if (!isGameOver)
         {
             isGameOver = true;
-
+            this.success = success;
             StopCoroutine("CountDownTimerRoutine");
 
             if (success)
@@ -156,7 +158,8 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         TopBarManager.Instance.LoadScene(2);
-        SceneManager.LoadScene("05.DadDriver");
+        if(success)
+            TopBarManager.Instance.EndGame(1);
     }
 
 }
