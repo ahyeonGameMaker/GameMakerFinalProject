@@ -31,6 +31,7 @@ public class TopBarManager : MonoBehaviour
     private void Start()
     {
         buttons = gameObject.GetComponentsInChildren<ButtonHoverDOTween>();
+        gameObject.SetActive(false);
     }
 
     public void EndGame(int sceneNumber)
