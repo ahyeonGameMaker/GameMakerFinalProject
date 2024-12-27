@@ -36,13 +36,13 @@ public class TopBarManager : MonoBehaviour
 
     public void EndGame(int sceneNumber)
     {
-        SceneData sceneData = scenes[sceneNumber - 1];
+        SceneData sceneData = scenes[sceneNumber];
         sceneData.isClear = true;
     }
 
     public void LoadScene(int sceneNumber)
     {
-        SceneData sceneData = scenes[sceneNumber - 1];
+        SceneData sceneData = scenes[sceneNumber];
         if (!sceneData.isClear)
         {
             SceneManager.LoadScene(sceneData.sceneName);
@@ -50,9 +50,12 @@ public class TopBarManager : MonoBehaviour
 
         for (int i = 0; i < buttons.Length; i++)
         {
-            buttons[i].SetSceneButton((i == sceneNumber - 1) ? true : false);
+            buttons[i].SetSceneButton((i == sceneNumber) ? true : false);
         }
-
+        if (sceneNumber == 0)
+            gameObject.SetActive(false);
+        else
+            gameObject.SetActive(true);
     }
 }
 
