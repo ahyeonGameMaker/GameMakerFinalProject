@@ -56,6 +56,13 @@ public class CameraMovement : MonoBehaviour
 	{
         TopBarManager.Instance.gameObject.SetActive(true);
 
-		TopBarManager.Instance.LoadScene(1);
+		for(int i = 0; i < TopBarManager.Instance.scenes.Count; i++)
+		{
+			if (!TopBarManager.Instance.scenes[i + 1].isClear)
+			{
+				TopBarManager.Instance.LoadScene(i + 1);
+				break;
+            }
+		}
 	}
 }

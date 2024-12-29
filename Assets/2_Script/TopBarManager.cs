@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TopBarManager : MonoBehaviour
 {
     private static TopBarManager instance;
-    private ButtonHoverDOTween[] buttons;
+    public ButtonHoverDOTween[] buttons;
     public List<SceneData> scenes = new List<SceneData>();
     public Image clearSceneImage;
     //private Image[] butonImages;
